@@ -1,0 +1,15 @@
+.etapa {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 50px auto;
+  align-items: center;
+  .selector-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 16px;
+    justify-content: space-evenly;
+    margin-bottom: 64px;
+  }
+}

@@ -1,0 +1,15 @@
+@import '../../public/global.scss';
+
+.button {
+  background-color: $primary;
+  border: none;
+  border-radius: 24px;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 12px 25px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
