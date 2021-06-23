@@ -17,7 +17,7 @@ export const Etapa1 = () => {
   return (
     <div className="etapa">
       <Heading>Para começar, selecione o dia da sua prova</Heading>
-      <div onKeyDown={e => eventHandler(e)} tabIndex={0}>
+      <div onKeyDown={e => eventHandler(e)} tabIndex="0">
         <div className="selector-wrapper">
           <Selector
             keyNumber="1"

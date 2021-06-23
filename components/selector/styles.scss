@@ -10,10 +10,10 @@
   padding: 10px;
   font-weight: bold;
   transition: background-color 0.3s ease;
+  cursor: pointer;
 
   //TODO: REMOVE ISSO AQUI DOIDÂO
   width: 161px;
-
   .keyNumber {
     color: $gray-60;
     border: solid 2px $gray-60;

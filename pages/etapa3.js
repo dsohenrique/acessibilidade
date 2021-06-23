@@ -17,31 +17,31 @@ export const Etapa3 = () => {
   return (
     <div className="etapa etapa-3">
       <Heading>Agora selecione a cor da prova que você fez</Heading>
-      <div onKeyDown={e => eventHandler(e)} tabIndex={0}>
+      <div onKeyDown={e => eventHandler(e)} tabIndex="0">
         <div className="selector-wrapper">
           <Selector
             keyNumber="1"
             value="Prova azul"
             selected={choosedSelector === '1'}
-            color="#4AFFB1"
+            color="#269FF9"
           />
           <Selector
             keyNumber="2"
             value="Prova amarela"
             selected={choosedSelector === '2'}
-            color="#4AFFB1"
+            color="#FED500"
           />
           <Selector
             keyNumber="3"
             value="Prova rosa"
             selected={choosedSelector === '3'}
-            color="#4AFFB1"
+            color="#FF7878"
           />
           <Selector
             keyNumber="4"
             value="Prova branca"
             selected={choosedSelector === '4'}
-            color="#4AFFB1"
+            color="#CACDCE"
           />
         </div>
       </div>

@@ -1,16 +1,20 @@
 import React from 'react';
 import './styles';
 
-export const Question = ({ id, position, isSelected, answer }) => {
+export const Question = ({ id, position, isSelected, answer, skiped }) => {
   const clickHandler = ({ target }) => {
     const buttons = document.querySelector(`#${id}`).querySelectorAll('button');
+    skiped && document.querySelector(`#${id}`).classList.remove('skiped');
     buttons.forEach(button => {
       button.classList.remove('answer');
       button.name === target.name && button.classList.add('answer');
     });
   };
   return (
-    <div id={id} className={`wrapper ${isSelected && 'selected'}`}>
+    <div
+      id={id}
+      className={`wrapper ${isSelected && 'selected'} ${skiped && 'skiped'}`}
+    >
       <div
         id={id}
         className="question"

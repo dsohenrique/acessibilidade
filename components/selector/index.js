@@ -18,6 +18,7 @@ export const Selector = ({ keyNumber, icon, value, date, selected, color }) => {
       {icon && <span className="icon">{icon}</span>}
       <span className="value">{value}</span>
       {date && <span className="date">{date}</span>}
+      <div className="color" style={{backgroundColor= color}}/>
     </div>
   );
 };

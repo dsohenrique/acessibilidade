@@ -60,3 +60,13 @@
     text-decoration: 1px underline;
   }
 }
+
+.skiped {
+  background-color: rebeccapurple;
+  .question {
+    button {
+      color: white;
+      background-color: #999999;
+    }
+  }
+}

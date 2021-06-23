@@ -17,7 +17,7 @@ export const Etapa2 = () => {
   return (
     <div className="etapa">
       <Heading>Qual foi a lingua estrangeira que você escolheu?</Heading>
-      <div onKeyDown={e => eventHandler(e)} tabIndex={0}>
+      <div onKeyDown={e => eventHandler(e)} tabIndex="0">
         <div className="selector-wrapper">
           <Selector
             keyNumber="1"

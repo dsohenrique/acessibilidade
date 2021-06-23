@@ -10,7 +10,7 @@ export const Formulary = () => {
     <div className="form">
       <Heading>Pra finalizar, preenche esses últimos dados pra gente</Heading>
       <div className="inputs">
-        <Input type="text" placeholder="Nome" tabIndex={0} />
+        <Input type="text" placeholder="Nome" tabIndex="0" />
         <input type="text" placeholder="Telefone" />
         <input type="text" placeholder="E-mail" />
         <Checkbox />
