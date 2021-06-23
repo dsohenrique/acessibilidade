@@ -3,6 +3,7 @@ import { Selector } from '../components/selector';
 import { keyHandler } from '../utils/keyHandler';
 import { useHistory } from 'react-router-dom';
 import { Button } from '../components/button';
+import { Heading } from '../components/heading';
 import './styles';
 
 export const Etapa1 = () => {
@@ -15,11 +16,8 @@ export const Etapa1 = () => {
 
   return (
     <div className="etapa">
-      <div
-        onKeyDown={e => eventHandler(e)}
-        tabIndex={0}
-        style={{ outline: 'none' }}
-      >
+      <Heading>Para começar, selecione o dia da sua prova</Heading>
+      <div onKeyDown={e => eventHandler(e)} tabIndex={0}>
         <div className="selector-wrapper">
           <Selector
             keyNumber="1"

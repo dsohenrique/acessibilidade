@@ -46,14 +46,14 @@ export const Etapa5 = () => {
         document
           .querySelectorAll('.wrapper')
           .forEach(wrapper => wrapper.classList.remove('selected'));
-    } else if (key === 'ArrowDown') {
+    } else if (key === 'ArrowDown' || key === ' ') {
+      if (key === 'ArrowDown' && questions[questionIndex].answer === '') return;
       questionIndex + 1 < questions.length && setIndex(questionIndex + 1);
       questionIndex + 1 !== questions.length &&
         document
           .querySelectorAll('.wrapper')
           .forEach(wrapper => wrapper.classList.remove('selected'));
     } else if (key === ' ') {
-      questionIndex + 1 < questions.length && setIndex(questionIndex + 1);
     } else if (
       key === 'a' ||
       key === 'b' ||
@@ -68,15 +68,12 @@ export const Etapa5 = () => {
         .forEach(
           button => button.name !== key && button.classList.remove('answer')
         );
+      questionIndex + 1 < questions.length && setIndex(questionIndex + 1);
     }
   };
 
   return (
-    <div
-      onKeyDown={evt => keyHandler(evt)}
-      tabIndex={0}
-      style={{ outline: 'none' }}
-    >
+    <div onKeyDown={evt => keyHandler(evt)}>
       {questions.map((question, index) => {
         const isSelected = questionIndex == index && true;
         return (
@@ -84,8 +81,9 @@ export const Etapa5 = () => {
             id={`question-${index}`}
             key={index}
             position={index + 1}
-            isSelected={isSelected}
+            isSelected={(index === 0 && true) || isSelected}
             answer={question.answer}
+            tabIndex={0}
           />
         );
       })}

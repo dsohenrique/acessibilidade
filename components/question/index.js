@@ -14,10 +14,12 @@ export const Question = ({ id, position, isSelected, answer }) => {
       <div
         id={id}
         className="question"
-        onMouseEnter={evt => {
+        onMouseEnter={({ target }) => {
           document.querySelectorAll('.wrapper').forEach(wrapper => {
             wrapper.classList.remove('selected');
-            wrapper.id === evt.target.id && wrapper.classList.add('selected');
+            wrapper.id === target.id &&
+              answer !== '' &&
+              wrapper.classList.add('selected');
           });
         }}
       >

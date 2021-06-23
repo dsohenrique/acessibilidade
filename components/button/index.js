@@ -4,7 +4,7 @@ import './styles';
 
 export const Button = ({ to, children }) => {
   return (
-    <Link className="button" to="etapa2">
+    <Link className="button" to={to}>
       {children}
     </Link>
   );

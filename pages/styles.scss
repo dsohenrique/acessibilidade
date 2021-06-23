@@ -13,3 +13,12 @@
     margin-bottom: 64px;
   }
 }
+
+.etapa-3 {
+  .selector-wrapper {
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 25vw;
+    row-gap: 8px;
+  }
+}

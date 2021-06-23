@@ -1,0 +1,19 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 0 auto;
+  justify-items: center;
+  align-items: center;
+
+  .inputs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 50%;
+    justify-items: center;
+    align-content: center;
+    gap: 15px;
+    margin-bottom: 44px;
+  }
+}
