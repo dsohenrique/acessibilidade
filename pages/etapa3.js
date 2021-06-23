@@ -24,24 +24,28 @@ export const Etapa3 = () => {
             value="Prova azul"
             selected={choosedSelector === '1'}
             color="#269FF9"
+            border={true}
           />
           <Selector
             keyNumber="2"
             value="Prova amarela"
             selected={choosedSelector === '2'}
             color="#FED500"
+            border={true}
           />
           <Selector
             keyNumber="3"
             value="Prova rosa"
             selected={choosedSelector === '3'}
             color="#FF7878"
+            border={true}
           />
           <Selector
             keyNumber="4"
             value="Prova branca"
             selected={choosedSelector === '4'}
             color="#CACDCE"
+            border={true}
           />
         </div>
       </div>

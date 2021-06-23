@@ -1,7 +1,15 @@
 import React from 'react';
 import './styles';
 
-export const Selector = ({ keyNumber, icon, value, date, selected, color }) => {
+export const Selector = ({
+  keyNumber,
+  icon,
+  value,
+  date,
+  selected,
+  color,
+  border
+}) => {
   return (
     <div
       id={keyNumber}
@@ -18,7 +26,7 @@ export const Selector = ({ keyNumber, icon, value, date, selected, color }) => {
       {icon && <span className="icon">{icon}</span>}
       <span className="value">{value}</span>
       {date && <span className="date">{date}</span>}
-      <div className="color" style={{backgroundColor= color}}/>
+      {border && <div className="color" style={{ backgroundColor: color }} />}
     </div>
   );
 };
