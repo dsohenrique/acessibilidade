@@ -33,7 +33,7 @@ export const Etapa2 = () => {
           />
         </div>
       </div>
-      <Button to="etapa2">Próxima Etapa</Button>
+      <Button to="etapa3">Próxima Etapa</Button>
     </div>
   );
 };
