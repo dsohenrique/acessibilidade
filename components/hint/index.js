@@ -1,10 +1,24 @@
 import React from 'react';
-import './styles'
+import './styles';
 
-export const Hint =({title, description}) => {
+export const Hint = ({ title, description }) => {
   return (
     <div className="hint-wrapper">
-      <di
+      <div
+        tabIndex="0"
+        className="close"
+        onClick={() =>
+          (document.querySelector('.hint-wrapper').style.opacity = '0')
+        }
+      >
+        <div id="mdiv">
+          <div class="mdiv">
+            <div class="md" />
+          </div>
+        </div>
+      </div>
+      <div className="title">{title}</div>
+      <div className="description">{description}</div>
     </div>
-  )
-}
+  );
+};

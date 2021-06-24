@@ -4,6 +4,7 @@ import { keyHandler } from '../utils/keyHandler';
 import { useHistory } from 'react-router-dom';
 import { Button } from '../components/button';
 import { Heading } from '../components/heading';
+import { Hint } from '../components/hint';
 import './styles';
 
 export const Etapa1 = () => {
@@ -17,7 +18,7 @@ export const Etapa1 = () => {
   return (
     <div className="etapa">
       <Heading>Para começar, selecione o dia da sua prova</Heading>
-      <div onKeyDown={e => eventHandler(e)} tabIndex="0">
+      <div onKeyDown={e => eventHandler(e)}>
         <div className="selector-wrapper">
           <Selector
             keyNumber="1"
@@ -36,6 +37,10 @@ export const Etapa1 = () => {
         </div>
       </div>
       <Button to="etapa2">Próxima Etapa</Button>
+      <Hint
+        title="Mais fácil de marcar o seu cartão"
+        description="Para marcar, use as letras correspondentes a sua resposta e as setas para navegar entre questões"
+      />
     </div>
   );
 };

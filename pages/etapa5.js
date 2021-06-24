@@ -94,6 +94,7 @@ export const Etapa5 = () => {
         className="question-wrapper"
         onKeyDown={evt => keyHandler(evt)}
         tabIndex="0"
+        style={{ outline: 'none' }}
       >
         {questions.map((question, index) => {
           const isSelected = questionIndex == index && true;
@@ -102,9 +103,7 @@ export const Etapa5 = () => {
               id={`question-${index}`}
               key={index}
               position={index + 1}
-              isSelected={
-                (index === 0 && questions[0].answer === '') || isSelected
-              }
+              isSelected={isSelected}
               skiped={question.skiped}
               answer={question.answer}
             />

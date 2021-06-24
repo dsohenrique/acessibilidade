@@ -20,7 +20,7 @@ export const Etapa3 = () => {
       <BackArrow to="/etapa2" />
       <div className="etapa etapa-3">
         <Heading>Agora selecione a cor da prova que você fez</Heading>
-        <div onKeyDown={e => eventHandler(e)} tabIndex="0">
+        <div onKeyDown={e => eventHandler(e)}>
           <div className="selector-wrapper">
             <Selector
               keyNumber="1"

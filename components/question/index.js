@@ -26,7 +26,7 @@ export const Question = ({ id, position, isSelected, answer, skiped }) => {
       <div
         id={id}
         className="question"
-        onMouseEnter={({ target }) => {
+        /*onMouseEnter={({ target }) => {
           document.querySelectorAll('.wrapper').forEach(wrapper => {
             wrapper.classList.remove('selected');
             (wrapper.id === target.id &&
@@ -39,7 +39,7 @@ export const Question = ({ id, position, isSelected, answer, skiped }) => {
                 wrapper.classList.add('selected') &&
                 wrapper.classList.remove('selected'));
           });
-        }}
+        }}*/
       >
         <span className="position">{position}.</span>
         <button
@@ -78,7 +78,7 @@ export const Question = ({ id, position, isSelected, answer, skiped }) => {
           E
         </button>
       </div>
-      <div className="hint">
+      <div className="hinter">
         <span>Não respondi essa questão</span>
       </div>
     </div>
