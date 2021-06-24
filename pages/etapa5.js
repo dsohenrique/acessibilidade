@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Question } from '../components/question';
 import { BackArrow } from '../components/backArrow';
 import { Hint } from '../components/hint';
@@ -38,8 +38,7 @@ export const Etapa5 = () => {
     newQuestions[questionIndex].skiped = true;
     setquestions(newQuestions);
   };
-  const keyHandler = evt => {
-    const { key } = evt;
+  const keyHandler = ({key}) => {
     if (key === 'ArrowUp') {
       questionIndex === 0 && setQuestionIndex(questionIndex);
       questionIndex > 0 && setQuestionIndex(questionIndex - 1);
@@ -80,6 +79,14 @@ export const Etapa5 = () => {
         setQuestionIndex(questionIndex + 1);
     }
   };
+
+  useEffect(() => {
+    window.addEventListener('keydown', keyHandler);
+    return () => {
+      window.addEventListener('keydown', keyHandler);
+    };
+  });
+
   return (
     <div className="etapa-5">
       <div className="header">
