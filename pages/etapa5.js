@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Question } from '../components/question';
 import { BackArrow } from '../components/backArrow';
+import { Hint } from '../components/hint';
 
 export const Etapa5 = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -110,6 +111,7 @@ export const Etapa5 = () => {
           );
         })}
       </div>
+      <Hint title="" description="" />
     </div>
   );
 };
