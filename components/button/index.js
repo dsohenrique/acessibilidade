@@ -4,8 +4,11 @@ import './styles';
 
 export const Button = ({ to, children }) => {
   return (
-    <Link className="button" to={to}>
-      {children}
-    </Link>
+    <div>
+      <Link className="button" to={to}>
+        {children}
+      </Link>
+      <div className="hint">Tecla Enter</div>
+    </div>
   );
 };
