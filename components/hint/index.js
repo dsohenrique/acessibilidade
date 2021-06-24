@@ -4,6 +4,8 @@ import './styles';
 export const Hint = ({ title, description }) => {
   return (
     <div className="hint-wrapper">
+      <div className="title">{title}</div>
+      <div className="description">{description}</div>
       <div
         tabIndex="0"
         className="close"
@@ -17,8 +19,6 @@ export const Hint = ({ title, description }) => {
           </div>
         </div>
       </div>
-      <div className="title">{title}</div>
-      <div className="description">{description}</div>
     </div>
   );
 };

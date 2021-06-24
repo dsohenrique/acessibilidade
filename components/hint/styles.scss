@@ -1,4 +1,9 @@
 .hint-wrapper {
+  position: fixed;
+  bottom: 15px;
+  width: 446px;
+  left: 50%;
+  margin-left: calc((446px / 2) * -1);
   background: #ffffff;
   border: 1px solid #dddddd;
   box-sizing: border-box;
@@ -7,8 +12,9 @@
   padding: 10px;
   transition: opacity 0.3s ease;
   .close {
-    margin-right: 15px;
-
+    position: absolute;
+    top: 6px;
+    right: 11px;
     .mdiv {
       margin: 0 auto;
       height: 6.75px;
