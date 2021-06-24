@@ -111,7 +111,10 @@ export const Etapa5 = () => {
           );
         })}
       </div>
-      <Hint title="" description="" />
+      <Hint
+        title="Mais fácil de marcar o seu cartão"
+        description="Para marcar, use as letras correspondentes a sua resposta e as setas para navegar entre questões"
+      />
     </div>
   );
 };
