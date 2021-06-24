@@ -22,3 +22,42 @@
     row-gap: 8px;
   }
 }
+
+.etapa-5 {
+  .header {
+    display: flex;
+    flex-direction: column;
+
+    .main {
+      background-color: #76c5ff;
+      height: 81px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+      .back-arrow {
+        span {
+          color: black;
+        }
+      }
+      span {
+        margin: 0 auto;
+      }
+
+      .login-button {
+        width: 117px;
+        height: 40px;
+        background-color: transparent;
+        border: 1px solid #111;
+        border-radius: 32px;
+        font-weight: bold;
+      }
+    }
+    .counter {
+      background-color: black;
+      height: 62px;
+    }
+  }
+}

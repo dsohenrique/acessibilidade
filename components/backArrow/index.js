@@ -4,18 +4,21 @@ import { useHistory } from 'react-router-dom';
 
 import './styles';
 
-export const BackArrow = to => {
+export const BackArrow = ({ to }) => {
   const history = useHistory();
   const back = () => {
-    console.log('opa');
+    console.log(to);
     history.push(to);
   };
   return (
-    <Link
-      tabIndex="0"
-      className="back-arrow"
-      onClick={() => back()}
-      onKeyDown={({ key }) => key === ' ' && back()}
-    />
+    <div className="back">
+      <Link
+        tabIndex="0"
+        className="back-arrow"
+        onClick={() => back()}
+        onKeyDown={({ key }) => key === ' ' && back()}
+      />
+      <span>Tecla Backspace</span>
+    </div>
   );
 };

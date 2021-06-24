@@ -10,10 +10,13 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 51%;
+    width: 36%;
     justify-items: center;
     align-content: center;
     gap: 15px;
     margin-bottom: 44px;
+    @media (min-width: 870px) {
+      width: 51%;
+    }
   }
 }

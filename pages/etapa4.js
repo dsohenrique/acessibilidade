@@ -1,10 +1,14 @@
 import React from 'react';
 import { Formulary } from '../components/formulary';
+import { BackArrow } from '../components/backArrow';
 
 export const Etapa4 = () => {
   return (
-    <div className="etapa">
-      <Formulary />
-    </div>
+    <>
+      <BackArrow to="/etapa3" />
+      <div className="etapa">
+        <Formulary />
+      </div>
+    </>
   );
 };

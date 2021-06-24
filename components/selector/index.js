@@ -12,6 +12,7 @@ export const Selector = ({
 }) => {
   return (
     <div
+      tabIndex="0"
       id={keyNumber}
       className="selector"
       style={{ backgroundColor: selected && color }}

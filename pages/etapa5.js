@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Question } from '../components/question';
+import { BackArrow } from '../components/backArrow';
 
 export const Etapa5 = () => {
   const [questionIndex, setIndex] = useState(0);
@@ -77,24 +78,31 @@ export const Etapa5 = () => {
   };
   //TODO: IMPLEMENTAR O DISABLE PARA QUESTÕES NÃO RESPONDIDAS NO HOVER DO MOUSE
   return (
-    <div
-      onKeyDown={evt => keyHandler(evt)}
-      tabIndex="0"
-      style={{ outline: 'none' }}
-    >
-      {questions.map((question, index) => {
-        const isSelected = questionIndex == index && true;
-        return (
-          <Question
-            id={`question-${index}`}
-            key={index}
-            position={index + 1}
-            isSelected={isSelected}
-            skiped={question.skiped}
-            answer={question.answer}
-          />
-        );
-      })}
+    <div className="etapa-5" tabIndex="0">
+      <div className="header">
+        <div className="main">
+          <BackArrow to="/etapa4" />
+          <span>Gabarito da prova</span>
+          <button className="login-button">Salvar</button>
+        </div>
+        <div className="counter" />
+      </div>
+      <div onKeyDown={evt => keyHandler(evt)}>
+        {questions.map((question, index) => {
+          const isSelected = questionIndex == index && true;
+          return (
+            <Question
+              tabIndex="0"
+              id={`question-${index}`}
+              key={index}
+              position={index + 1}
+              isSelected={isSelected}
+              skiped={question.skiped}
+              answer={question.answer}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };

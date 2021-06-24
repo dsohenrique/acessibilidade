@@ -11,8 +11,8 @@ export const Formulary = () => {
       <Heading>Pra finalizar, preenche esses últimos dados pra gente</Heading>
       <div className="inputs">
         <Input type="text" placeholder="Nome" tabIndex="0" />
-        <input type="text" placeholder="Telefone" />
-        <input type="text" placeholder="E-mail" />
+        <Input type="text" placeholder="Telefone" />
+        <Input type="text" placeholder="E-mail" />
         <Checkbox />
       </div>
       <Button to="/etapa5">Preencher o cartão resposta</Button>
