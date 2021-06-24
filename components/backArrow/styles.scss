@@ -1,0 +1,10 @@
+.back-arrow {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  position: fixed;
+  left: 10%;
+  @media (min-width: 1366px) {
+    left: 30%;
+  }
+}
