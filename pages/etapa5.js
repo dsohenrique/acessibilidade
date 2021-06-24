@@ -102,7 +102,9 @@ export const Etapa5 = () => {
               id={`question-${index}`}
               key={index}
               position={index + 1}
-              isSelected={(index === 0 && !question.answer) || isSelected}
+              isSelected={
+                (index === 0 && questions[0].answer === '') || isSelected
+              }
               skiped={question.skiped}
               answer={question.answer}
             />

@@ -13,10 +13,6 @@ export const Question = ({ id, position, isSelected, answer, skiped }) => {
   };
 
   const sendNextQuestion = () => {
-    console.log(
-      document.querySelector(`#${id}`),
-      document.querySelector(`#question-${position}`)
-    );
     document.querySelector(`#${id}`)?.classList.remove('selected', 'sended');
     document
       .querySelector(`#question-${position}`)
