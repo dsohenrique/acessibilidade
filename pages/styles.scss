@@ -34,17 +34,10 @@
       width: 100%;
       display: flex;
       flex-direction: row;
-      justify-content: space-around;
+      justify-content: flex-end;
       align-items: center;
+      justify-items: center;
       text-align: center;
-      .back-arrow {
-        span {
-          color: black;
-        }
-      }
-      span {
-        margin: 0 auto;
-      }
 
       .login-button {
         width: 117px;
@@ -53,6 +46,7 @@
         border: 1px solid #111;
         border-radius: 32px;
         font-weight: bold;
+        margin-right: 72px;
       }
     }
     .counter {

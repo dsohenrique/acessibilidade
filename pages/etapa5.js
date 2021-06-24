@@ -78,21 +78,19 @@ export const Etapa5 = () => {
   };
   //TODO: IMPLEMENTAR O DISABLE PARA QUESTÕES NÃO RESPONDIDAS NO HOVER DO MOUSE
   return (
-    <div className="etapa-5" tabIndex="0">
+    <div className="etapa-5">
       <div className="header">
         <div className="main">
-          <BackArrow to="/etapa4" />
-          <span>Gabarito da prova</span>
+          <BackArrow className="going-back" to="/etapa4" />
           <button className="login-button">Salvar</button>
         </div>
         <div className="counter" />
       </div>
-      <div onKeyDown={evt => keyHandler(evt)}>
+      <div onKeyDown={evt => keyHandler(evt)} tabIndex="0">
         {questions.map((question, index) => {
           const isSelected = questionIndex == index && true;
           return (
             <Question
-              tabIndex="0"
               id={`question-${index}`}
               key={index}
               position={index + 1}
