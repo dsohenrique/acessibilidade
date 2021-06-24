@@ -7,7 +7,6 @@ import './styles';
 export const BackArrow = ({ to }) => {
   const history = useHistory();
   const back = () => {
-    console.log(to);
     history.push(to);
   };
   return (

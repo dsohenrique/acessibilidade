@@ -21,9 +21,12 @@ export const Question = ({ id, position, isSelected, answer, skiped }) => {
         onMouseEnter={({ target }) => {
           document.querySelectorAll('.wrapper').forEach(wrapper => {
             wrapper.classList.remove('selected');
-            wrapper.id === target.id &&
+            (wrapper.id === target.id &&
               answer !== '' &&
-              wrapper.classList.add('selected');
+              wrapper.classList.add('selected')) ||
+              (wrapper.id === 'question-0' &&
+                answer === '' &&
+                wrapper.classList.add('selected'));
           });
         }}
       >

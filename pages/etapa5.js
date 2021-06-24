@@ -3,7 +3,7 @@ import { Question } from '../components/question';
 import { BackArrow } from '../components/backArrow';
 
 export const Etapa5 = () => {
-  const [questionIndex, setIndex] = useState(0);
+  const [questionIndex, setQuestionIndex] = useState(0);
   const [questions, setquestions] = useState([
     {
       answer: '',
@@ -40,23 +40,24 @@ export const Etapa5 = () => {
   const keyHandler = evt => {
     const { key } = evt;
     if (key === 'ArrowUp') {
-      questionIndex > 0 && setIndex(questionIndex - 1);
+      questionIndex === 0 && setQuestionIndex(questionIndex);
+      questionIndex > 0 && setQuestionIndex(questionIndex - 1);
 
       questionIndex !== 0 &&
         document
           .querySelectorAll('.wrapper')
           .forEach(wrapper => wrapper.classList.remove('selected'));
     } else if (key === 'ArrowDown' || key === ' ' || key === 'Tab') {
+
       if (
-        key === 'ArrowDown' ||
-        (key === 'Tab' &&
-          questionIndex !== 0 &&
-          !questions[questionIndex].skiped &&
-          questions[questionIndex].answer === '')
+        (key === 'ArrowDown' || key === 'Tab') &&
+        !questions[questionIndex].skiped &&
+        questions[questionIndex].answer === ''
       )
         return;
       if (key === ' ') skiped();
-      questionIndex + 1 < questions.length && setIndex(questionIndex + 1);
+      questionIndex + 1 < questions.length &&
+        setQuestionIndex(questionIndex + 1);
       questionIndex + 1 !== questions.length &&
         document
           .querySelectorAll('.wrapper')
@@ -75,7 +76,8 @@ export const Etapa5 = () => {
         .forEach(
           button => button.name !== key && button.classList.remove('answer')
         );
-      questionIndex + 1 < questions.length && setIndex(questionIndex + 1);
+      questionIndex + 1 < questions.length &&
+        setQuestionIndex(questionIndex + 1);
     }
   };
   return (
@@ -89,7 +91,11 @@ export const Etapa5 = () => {
         </div>
         <div className="counter" />
       </div>
-      <div className="question-wrapper" onKeyDown={evt => keyHandler(evt)}>
+      <div
+        className="question-wrapper"
+        onKeyDown={evt => keyHandler(evt)}
+        tabIndex="0"
+      >
         {questions.map((question, index) => {
           const isSelected = questionIndex == index && true;
           return (
