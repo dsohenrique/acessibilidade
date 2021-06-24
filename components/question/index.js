@@ -9,6 +9,18 @@ export const Question = ({ id, position, isSelected, answer, skiped }) => {
       button.classList.remove('answer');
       button.name === target.name && button.classList.add('answer');
     });
+    sendNextQuestion();
+  };
+
+  const sendNextQuestion = () => {
+    console.log(
+      document.querySelector(`#${id}`),
+      document.querySelector(`#question-${position}`)
+    );
+    document.querySelector(`#${id}`)?.classList.remove('selected', 'sended');
+    document
+      .querySelector(`#question-${position}`)
+      ?.classList.add('selected', 'sended');
   };
   return (
     <div
@@ -26,7 +38,10 @@ export const Question = ({ id, position, isSelected, answer, skiped }) => {
               wrapper.classList.add('selected')) ||
               (wrapper.id === 'question-0' &&
                 answer === '' &&
-                wrapper.classList.add('selected'));
+                wrapper.classList.add('selected')) ||
+              (wrapper.classList.contains('sended') &&
+                wrapper.classList.add('selected') &&
+                wrapper.classList.remove('selected'));
           });
         }}
       >

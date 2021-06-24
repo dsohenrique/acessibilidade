@@ -48,7 +48,6 @@ export const Etapa5 = () => {
           .querySelectorAll('.wrapper')
           .forEach(wrapper => wrapper.classList.remove('selected'));
     } else if (key === 'ArrowDown' || key === ' ' || key === 'Tab') {
-
       if (
         (key === 'ArrowDown' || key === 'Tab') &&
         !questions[questionIndex].skiped &&
