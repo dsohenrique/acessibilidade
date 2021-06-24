@@ -22,6 +22,7 @@ export const Question = ({ id, position, isSelected, answer, skiped }) => {
     <div
       id={id}
       className={`wrapper ${isSelected && 'selected'} ${skiped && 'skiped'}`}
+      data={position}
     >
       <div
         id={id}

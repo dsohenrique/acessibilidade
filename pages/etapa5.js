@@ -24,10 +24,12 @@ export const Etapa5 = () => {
     }
   ]);
 
-  const setAnswer = answer => {
+  const setAnswer = (answer, questIndex) => {
+    //TODO: ESSE CARA TÀ BUGANDO A PORRA TODA ARRUMA AE
+    console.log('setAnswer', answer, questIndex);
     const newQuestions = [...questions];
-    newQuestions[questionIndex].answer = answer;
-    newQuestions[questionIndex].skiped = false;
+    newQuestions[questIndex].answer = answer;
+    newQuestions[questIndex].skiped = false;
 
     setquestions(newQuestions);
   };
@@ -38,15 +40,9 @@ export const Etapa5 = () => {
     newQuestions[questionIndex].skiped = true;
     setquestions(newQuestions);
   };
-  const keyHandler = ({key}) => {
+  const keyHandler = ({ key }) => {
+    console.log('keyHandler', key);
     if (key === 'ArrowUp') {
-      questionIndex === 0 && setQuestionIndex(questionIndex);
-      questionIndex > 0 && setQuestionIndex(questionIndex - 1);
-
-      questionIndex !== 0 &&
-        document
-          .querySelectorAll('.wrapper')
-          .forEach(wrapper => wrapper.classList.remove('selected'));
     } else if (key === 'ArrowDown' || key === ' ' || key === 'Tab') {
       if (
         (key === 'ArrowDown' || key === 'Tab') &&
@@ -68,22 +64,27 @@ export const Etapa5 = () => {
       key === 'd' ||
       key === 'e'
     ) {
-      setAnswer(key);
-      document
-        .querySelector(`#question-${questionIndex}`)
-        .querySelectorAll('button')
-        .forEach(
-          button => button.name !== key && button.classList.remove('answer')
-        );
-      questionIndex + 1 < questions.length &&
-        setQuestionIndex(questionIndex + 1);
+      const questIndex =
+        document.querySelector('.selected').getAttribute('data') - 1;
+      console.log(key, questIndex);
+      //setAnswer(key, questIndex);
+      // document
+      //   .querySelector(`#question-${questionIndex}`)
+      //   .querySelectorAll('button')
+      //   .forEach(
+      //     button => button.name !== key && button.classList.remove('answer')
+      //   );
+      // questionIndex + 1 < questions.length &&
+      //   setQuestionIndex(questionIndex + 1);
     }
   };
 
   useEffect(() => {
-    window.addEventListener('keydown', keyHandler);
+    console.log('useEffect');
+    window.addEventListener('keyup', keyHandler);
     return () => {
-      window.addEventListener('keydown', keyHandler);
+      console.log('return');
+      window.addEventListener('keyup', keyHandler);
     };
   });
 
@@ -100,7 +101,6 @@ export const Etapa5 = () => {
       </div>
       <div
         className="question-wrapper"
-        onKeyDown={evt => keyHandler(evt)}
         tabIndex="0"
         style={{ outline: 'none' }}
       >

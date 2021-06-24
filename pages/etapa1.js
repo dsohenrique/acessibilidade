@@ -16,9 +16,9 @@ export const Etapa1 = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('keydown', eventHandler);
+    window.addEventListener('keyup', eventHandler);
     return () => {
-      window.addEventListener('keydown', eventHandler);
+      window.addEventListener('keyup', eventHandler);
     };
   });
 

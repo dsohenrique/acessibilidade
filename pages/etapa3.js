@@ -16,8 +16,12 @@ export const Etapa3 = () => {
   };
 
   useEffect(() => {
+    console.log('useEffect');
+
     window.addEventListener('keydown', eventHandler);
     return () => {
+      console.log('return');
+
       window.addEventListener('keydown', eventHandler);
     };
   });
