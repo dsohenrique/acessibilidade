@@ -46,11 +46,13 @@ export const Etapa5 = () => {
         document
           .querySelectorAll('.wrapper')
           .forEach(wrapper => wrapper.classList.remove('selected'));
-    } else if (key === 'ArrowDown' || key === ' ') {
+    } else if (key === 'ArrowDown' || key === ' ' || key === 'Tab') {
       if (
-        key === 'ArrowDown' &&
-        !questions[questionIndex].skiped &&
-        questions[questionIndex].answer === ''
+        key === 'ArrowDown' ||
+        (key === 'Tab' &&
+          questionIndex !== 0 &&
+          !questions[questionIndex].skiped &&
+          questions[questionIndex].answer === '')
       )
         return;
       if (key === ' ') skiped();
@@ -76,17 +78,18 @@ export const Etapa5 = () => {
       questionIndex + 1 < questions.length && setIndex(questionIndex + 1);
     }
   };
-  //TODO: IMPLEMENTAR O DISABLE PARA QUESTÕES NÃO RESPONDIDAS NO HOVER DO MOUSE
   return (
     <div className="etapa-5">
       <div className="header">
         <div className="main">
           <BackArrow className="going-back" to="/etapa4" />
-          <button className="login-button">Salvar</button>
+          <button className="login-button" tabIndex="0">
+            Salvar
+          </button>
         </div>
         <div className="counter" />
       </div>
-      <div onKeyDown={evt => keyHandler(evt)} tabIndex="0">
+      <div className="question-wrapper" onKeyDown={evt => keyHandler(evt)}>
         {questions.map((question, index) => {
           const isSelected = questionIndex == index && true;
           return (
@@ -94,7 +97,7 @@ export const Etapa5 = () => {
               id={`question-${index}`}
               key={index}
               position={index + 1}
-              isSelected={isSelected}
+              isSelected={(index === 0 && !question.answer) || isSelected}
               skiped={question.skiped}
               answer={question.answer}
             />
