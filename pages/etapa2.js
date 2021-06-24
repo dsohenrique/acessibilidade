@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Selector } from '../components/selector';
 import { keyHandler } from '../utils/keyHandler';
 import { useHistory } from 'react-router-dom';
@@ -16,12 +16,19 @@ export const Etapa2 = () => {
     setChoosedSelector(keyHandler(evt, history, '/etapa3', '/'));
   };
 
+  useEffect(() => {
+    window.addEventListener('keydown', eventHandler);
+    return () => {
+      window.addEventListener('keydown', eventHandler);
+    };
+  });
+
   return (
     <>
       <BackArrow to="/" />
       <div className="etapa">
         <Heading>Qual foi a lingua estrangeira que você escolheu?</Heading>
-        <div onKeyDown={e => eventHandler(e)}>
+        <div>
           <div className="selector-wrapper">
             <Selector
               keyNumber="1"

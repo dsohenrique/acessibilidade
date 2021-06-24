@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Selector } from '../components/selector';
 import { keyHandler } from '../utils/keyHandler';
 import { useHistory } from 'react-router-dom';
@@ -14,7 +14,14 @@ export const Etapa1 = () => {
   const eventHandler = evt => {
     setChoosedSelector(keyHandler(evt, history, '/etapa2'));
   };
-  useEventListener('onKeyDown', evt => eventHandler(evt));
+
+  useEffect(() => {
+    window.addEventListener('keydown', eventHandler);
+    return () => {
+      window.addEventListener('keydown', eventHandler);
+    };
+  });
+
   return (
     <div className="etapa">
       <Heading>Para começar, selecione o dia da sua prova</Heading>

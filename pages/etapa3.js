@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Selector } from '../components/selector';
 import { keyHandler } from '../utils/keyHandler';
 import { useHistory } from 'react-router-dom';
@@ -15,12 +15,19 @@ export const Etapa3 = () => {
     setChoosedSelector(keyHandler(evt, history, '/etapa4', '/etapa2'));
   };
 
+  useEffect(() => {
+    window.addEventListener('keydown', eventHandler);
+    return () => {
+      window.addEventListener('keydown', eventHandler);
+    };
+  });
+
   return (
     <>
       <BackArrow to="/etapa2" />
       <div className="etapa etapa-3">
         <Heading>Agora selecione a cor da prova que você fez</Heading>
-        <div onKeyDown={e => eventHandler(e)} className="selector-wrapper">
+        <div className="selector-wrapper">
           <Selector
             keyNumber="1"
             value="Prova azul"
