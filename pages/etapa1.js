@@ -14,12 +14,12 @@ export const Etapa1 = () => {
   const eventHandler = evt => {
     setChoosedSelector(keyHandler(evt, history, '/etapa2'));
   };
-
+  useEventListener('onKeyDown', evt => eventHandler(evt));
   return (
     <div className="etapa">
       <Heading>Para começar, selecione o dia da sua prova</Heading>
-      <div onKeyDown={e => eventHandler(e)}>
-        <div className="selector-wrapper">
+      <div>
+        <div tabIndex="0" className="selector-wrapper">
           <Selector
             keyNumber="1"
             value="Dia 1"
