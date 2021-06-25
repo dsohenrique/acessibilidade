@@ -7,18 +7,22 @@ export const Etapa5 = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [questions, setquestions] = useState([
     {
+      id: 0,
       answer: '',
       skiped: false
     },
     {
+      id: 1,
       answer: '',
       skiped: false
     },
     {
+      id: 2,
       answer: '',
       skiped: false
     },
     {
+      id: 3,
       answer: '',
       skiped: false
     }
@@ -34,40 +38,54 @@ export const Etapa5 = () => {
     setquestions(newQuestions);
   };
 
+  const sendNextQuestion = () => {
+    const nextQuestion = questions[questionIndex + 1];
+    if (nextQuestion) {
+      document
+        .querySelector(`#question-${questionIndex + 1}`)
+        .classList.add('selected');
+      document
+        .querySelector(`#question-${questionIndex}`)
+        .classList.remove('selected');
+      setQuestionIndex(questionIndex + 1);
+    }
+  };
+
   const skiped = () => {
     const newQuestions = [...questions];
     newQuestions[questionIndex].answer = '';
     newQuestions[questionIndex].skiped = true;
     setquestions(newQuestions);
+    sendNextQuestion();
   };
+
+  const arrowUpHandler = () => {
+    if (questions[questionIndex - 1]) {
+      document
+        .querySelector(`#question-${questionIndex - 1}`)
+        .classList.add('selected');
+      document
+        .querySelector(`#question-${questionIndex}`)
+        .classList.remove('selected');
+      setQuestionIndex(questionIndex - 1);
+    }
+  };
+
+  const arrowDownHandler = () => {
+    const nextQuestion = questions[questionIndex + 1];
+    if (!nextQuestion?.skiped && !nextQuestion?.answer) return;
+    sendNextQuestion();
+  };
+
+  //TODO: tab deve iterarar as alternativas de cada questão
   const keyHandler = ({ key }) => {
     console.log('keyHandler', key);
     if (key === 'ArrowUp') {
-      if (questions[questionIndex - 1]) {
-        document
-          .querySelector(`#question-${questionIndex - 1}`)
-          .classList.add('selected');
-        document
-          .querySelector(`#question-${questionIndex}`)
-          .classList.remove('selected');
-        setQuestionIndex(questionIndex - 1);
-      }
-
-      console.log();
-    } else if (key === 'ArrowDown' || key === ' ' || key === 'Tab') {
-      if (
-        (key === 'ArrowDown' || key === 'Tab') &&
-        !questions[questionIndex].skiped &&
-        questions[questionIndex].answer === ''
-      )
-        return;
-      if (key === ' ') skiped();
-      questionIndex + 1 < questions.length &&
-        setQuestionIndex(questionIndex + 1);
-      questionIndex + 1 !== questions.length &&
-        document
-          .querySelectorAll('.wrapper')
-          .forEach(wrapper => wrapper.classList.remove('selected'));
+      arrowUpHandler();
+    } else if (key === 'ArrowDown') {
+      arrowDownHandler();
+    } else if (key === ' ') {
+      skiped();
     } else if (
       key === 'a' ||
       key === 'b' ||
