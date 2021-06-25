@@ -59,6 +59,7 @@ export const Question = ({
                 answer === alternative ? 'answer' : ''
               } ${disabled && 'disabled'}`}
               name={alternative}
+              //TODO: CLick deve ser passado por parâmetro para que possa alterar o estado das questões pelo questionIndex
               onClick={evt =>
                 !evt.target.classList.contains('disabled') && clickHandler(evt)
               }
