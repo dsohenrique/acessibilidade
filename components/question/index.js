@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import './styles';
 
-export const Question = ({ id, position, isSelected, answer, skiped }) => {
+export const Question = ({
+  id,
+  position,
+  isSelected,
+  answer,
+  skiped,
+  disabled
+}) => {
   const clickHandler = ({ target }) => {
     const buttons = document.querySelector(`#${id}`).querySelectorAll('button');
     buttons.forEach(button => {
@@ -30,9 +37,11 @@ export const Question = ({ id, position, isSelected, answer, skiped }) => {
         {alternatives.map(alternative => {
           return (
             <button
-              className={answer === alternative ? 'answer' : ''}
+              className={`${
+                answer === alternative ? 'answer' : ''
+              } ${disabled && 'disabled'}`}
               name={alternative}
-              onClick={evt => clickHandler(evt)}
+              onClick={evt => !disabled && clickHandler(evt)}
             >
               {alternative.toUpperCase()}
             </button>

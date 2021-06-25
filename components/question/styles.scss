@@ -35,6 +35,9 @@
       font-weight: bold;
       cursor: pointer;
     }
+    .disabled {
+      cursor: not-allowed;
+    }
   }
   .hinter {
     transition: font-size 0.1s ease;

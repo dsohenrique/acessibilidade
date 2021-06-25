@@ -15,29 +15,30 @@ export const Etapa5 = () => {
       id: 1,
       answer: '',
       skiped: false,
-      disabled: false
+      disabled: true
     },
     {
       id: 2,
       answer: '',
       skiped: false,
-      disabled: false
+      disabled: true
     },
     {
       id: 3,
       answer: '',
       skiped: false,
-      disabled: false
+      disabled: true
     }
   ]);
 
   const setAnswer = answer => {
-    console.log('setAnswer', answer, questionIndex);
     const newQuestions = [...questions];
     newQuestions[questionIndex].answer = answer;
     newQuestions[questionIndex].skiped = false;
+    newQuestions[questionIndex].disabled = false;
 
     setQuestions(newQuestions);
+    console.log('asdasdasd',questions);
   };
 
   const setSelected = direction => {
