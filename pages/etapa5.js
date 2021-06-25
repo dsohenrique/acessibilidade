@@ -24,12 +24,12 @@ export const Etapa5 = () => {
     }
   ]);
 
-  const setAnswer = (answer, questIndex) => {
+  const setAnswer = answer => {
     //TODO: ESSE CARA TÀ BUGANDO A PORRA TODA ARRUMA AE
-    console.log('setAnswer', answer, questIndex);
+    console.log('setAnswer', answer, questionIndex);
     const newQuestions = [...questions];
-    newQuestions[questIndex].answer = answer;
-    newQuestions[questIndex].skiped = false;
+    newQuestions[questionIndex].answer = answer;
+    newQuestions[questionIndex].skiped = false;
 
     setquestions(newQuestions);
   };
@@ -43,6 +43,17 @@ export const Etapa5 = () => {
   const keyHandler = ({ key }) => {
     console.log('keyHandler', key);
     if (key === 'ArrowUp') {
+      if (questions[questionIndex - 1]) {
+        document
+          .querySelector(`#question-${questionIndex - 1}`)
+          .classList.add('selected');
+        document
+          .querySelector(`#question-${questionIndex}`)
+          .classList.remove('selected');
+        setQuestionIndex(questionIndex - 1);
+      }
+
+      console.log();
     } else if (key === 'ArrowDown' || key === ' ' || key === 'Tab') {
       if (
         (key === 'ArrowDown' || key === 'Tab') &&
@@ -64,18 +75,15 @@ export const Etapa5 = () => {
       key === 'd' ||
       key === 'e'
     ) {
-      const questIndex =
-        document.querySelector('.selected').getAttribute('data') - 1;
-      console.log(key, questIndex);
-      //setAnswer(key, questIndex);
-      // document
-      //   .querySelector(`#question-${questionIndex}`)
-      //   .querySelectorAll('button')
-      //   .forEach(
-      //     button => button.name !== key && button.classList.remove('answer')
-      //   );
-      // questionIndex + 1 < questions.length &&
-      //   setQuestionIndex(questionIndex + 1);
+      setAnswer(key);
+      document
+        .querySelector(`#question-${questionIndex}`)
+        .querySelectorAll('button')
+        .forEach(
+          button => button.name !== key && button.classList.remove('answer')
+        );
+      questionIndex + 1 < questions.length &&
+        setQuestionIndex(questionIndex + 1);
     }
   };
 
@@ -84,7 +92,7 @@ export const Etapa5 = () => {
     window.addEventListener('keyup', keyHandler);
     return () => {
       console.log('return');
-      window.addEventListener('keyup', keyHandler);
+      window.removeEventListener('keyup', keyHandler);
     };
   });
 
