@@ -27,20 +27,6 @@ export const Question = ({ id, position, isSelected, answer, skiped }) => {
       <div
         id={id}
         className="question"
-        /*onMouseEnter={({ target }) => {
-          document.querySelectorAll('.wrapper').forEach(wrapper => {
-            wrapper.classList.remove('selected');
-            (wrapper.id === target.id &&
-              answer !== '' &&
-              wrapper.classList.add('selected')) ||
-              (wrapper.id === 'question-0' &&
-                answer === '' &&
-                wrapper.classList.add('selected')) ||
-              (wrapper.classList.contains('sended') &&
-                wrapper.classList.add('selected') &&
-                wrapper.classList.remove('selected'));
-          });
-        }}*/
       >
         <span className="position">{position}.</span>
         <button
