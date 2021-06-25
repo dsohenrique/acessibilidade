@@ -38,7 +38,6 @@ export const Etapa5 = () => {
     newQuestions[questionIndex].disabled = false;
 
     setQuestions(newQuestions);
-    console.log('asdasdasd',questions);
   };
 
   const setSelected = direction => {
@@ -85,7 +84,6 @@ export const Etapa5 = () => {
 
   //TODO: tab deve iterarar as alternativas de cada questão
   const keyHandler = ({ key }) => {
-    console.log('keyHandler', key);
     if (key === 'ArrowUp') {
       arrowUpHandler();
     } else if (key === 'ArrowDown') {
@@ -134,7 +132,6 @@ export const Etapa5 = () => {
         style={{ outline: 'none' }}
       >
         {questions.map(({ skiped, answer, isSelected, disabled }, index) => {
-          console.log(skiped, answer, isSelected, index);
           return (
             <Question
               id={`question-${index}`}

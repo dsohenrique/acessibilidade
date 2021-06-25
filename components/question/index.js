@@ -11,18 +11,36 @@ export const Question = ({
 }) => {
   const clickHandler = ({ target }) => {
     const buttons = document.querySelector(`#${id}`).querySelectorAll('button');
+    let hasAnswer = false;
     buttons.forEach(button => {
+      if (button.classList.contains('answer')) hasAnswer = true;
       button.classList.remove('answer');
       button.name === target.name && button.classList.add('answer');
     });
     skiped && document.querySelector(`#${id}`).classList.remove('skiped');
-
-    sendNextQuestion();
+    if (hasAnswer) {
+      console.log(id);
+      document.querySelectorAll('.wrapper').forEach(wrapper => {
+        if (wrapper.id === id) {
+          wrapper.classList.add('selected');
+        } else {
+          wrapper.classList.remove('selected');
+        }
+      });
+    } else {
+      sendNextQuestion();
+    }
   };
 
   const sendNextQuestion = () => {
-    document.querySelector(`#${id}`)?.classList.remove('selected');
+    document
+      .querySelectorAll('.wrapper')
+      .forEach(wrapper => wrapper.classList.remove('selected'));
     document.querySelector(`#question-${position}`)?.classList.add('selected');
+    document
+      .querySelector(`#question-${position}`)
+      ?.querySelectorAll('button')
+      .forEach(button => button.classList.remove('disabled'));
   };
   const alternatives = ['a', 'b', 'c', 'd', 'e'];
 
@@ -41,7 +59,9 @@ export const Question = ({
                 answer === alternative ? 'answer' : ''
               } ${disabled && 'disabled'}`}
               name={alternative}
-              onClick={evt => !disabled && clickHandler(evt)}
+              onClick={evt =>
+                !evt.target.classList.contains('disabled') && clickHandler(evt)
+              }
             >
               {alternative.toUpperCase()}
             </button>
