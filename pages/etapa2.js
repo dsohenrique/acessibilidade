@@ -17,9 +17,9 @@ export const Etapa2 = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('keydown', eventHandler);
+    window.addEventListener('keyup', eventHandler);
     return () => {
-      window.addEventListener('keydown', eventHandler);
+      window.addEventListener('keyup', eventHandler);
     };
   });
 
@@ -44,7 +44,7 @@ export const Etapa2 = () => {
             />
           </div>
         </div>
-        <Button to="etapa3">Próxima Etapa</Button>
+        <Button to="/etapa3">Próxima Etapa</Button>
       </div>
     </>
   );

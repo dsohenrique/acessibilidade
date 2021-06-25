@@ -61,7 +61,7 @@ export const Etapa3 = () => {
             border={true}
           />
         </div>
-        <Button to="etapa4">Próxima Etapa</Button>
+        <Button to="/etapa4">Próxima Etapa</Button>
       </div>
     </>
   );

@@ -1,52 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import { Question } from '../components/question';
 import { BackArrow } from '../components/backArrow';
-import { Hint } from '../components/hint';
 
 export const Etapa5 = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [questions, setquestions] = useState([
+  const [questions, setQuestions] = useState([
     {
       id: 0,
       answer: '',
-      skiped: false
+      skiped: false,
+      disabled: false
     },
     {
       id: 1,
       answer: '',
-      skiped: false
+      skiped: false,
+      disabled: false
     },
     {
       id: 2,
       answer: '',
-      skiped: false
+      skiped: false,
+      disabled: false
     },
     {
       id: 3,
       answer: '',
-      skiped: false
+      skiped: false,
+      disabled: false
     }
   ]);
 
   const setAnswer = answer => {
-    //TODO: ESSE CARA TÀ BUGANDO A PORRA TODA ARRUMA AE
     console.log('setAnswer', answer, questionIndex);
     const newQuestions = [...questions];
     newQuestions[questionIndex].answer = answer;
     newQuestions[questionIndex].skiped = false;
 
-    setquestions(newQuestions);
+    setQuestions(newQuestions);
+  };
+
+  const setSelected = direction => {
+    let index;
+    if (direction === 'up') {
+      index = questionIndex - 1;
+    } else if (direction === 'down') {
+      index = questionIndex + 1;
+    }
+    document.querySelector(`#question-${index}`).classList.add('selected');
+    document
+      .querySelector(`#question-${questionIndex}`)
+      .classList.remove('selected');
   };
 
   const sendNextQuestion = () => {
     const nextQuestion = questions[questionIndex + 1];
     if (nextQuestion) {
-      document
-        .querySelector(`#question-${questionIndex + 1}`)
-        .classList.add('selected');
-      document
-        .querySelector(`#question-${questionIndex}`)
-        .classList.remove('selected');
+      setSelected('down');
       setQuestionIndex(questionIndex + 1);
     }
   };
@@ -55,18 +65,13 @@ export const Etapa5 = () => {
     const newQuestions = [...questions];
     newQuestions[questionIndex].answer = '';
     newQuestions[questionIndex].skiped = true;
-    setquestions(newQuestions);
+    setQuestions(newQuestions);
     sendNextQuestion();
   };
 
   const arrowUpHandler = () => {
     if (questions[questionIndex - 1]) {
-      document
-        .querySelector(`#question-${questionIndex - 1}`)
-        .classList.add('selected');
-      document
-        .querySelector(`#question-${questionIndex}`)
-        .classList.remove('selected');
+      setSelected('up');
       setQuestionIndex(questionIndex - 1);
     }
   };
@@ -93,23 +98,20 @@ export const Etapa5 = () => {
       key === 'd' ||
       key === 'e'
     ) {
-      setAnswer(key);
       document
         .querySelector(`#question-${questionIndex}`)
         .querySelectorAll('button')
         .forEach(
           button => button.name !== key && button.classList.remove('answer')
         );
-      questionIndex + 1 < questions.length &&
-        setQuestionIndex(questionIndex + 1);
+      setAnswer(key);
+      sendNextQuestion();
     }
   };
 
   useEffect(() => {
-    console.log('useEffect');
     window.addEventListener('keyup', keyHandler);
     return () => {
-      console.log('return');
       window.removeEventListener('keyup', keyHandler);
     };
   });
@@ -130,24 +132,21 @@ export const Etapa5 = () => {
         tabIndex="0"
         style={{ outline: 'none' }}
       >
-        {questions.map((question, index) => {
-          const isSelected = questionIndex == index && true;
+        {questions.map(({ skiped, answer, isSelected, disabled }, index) => {
+          console.log(skiped, answer, isSelected, index);
           return (
             <Question
               id={`question-${index}`}
               key={index}
               position={index + 1}
-              isSelected={isSelected}
-              skiped={question.skiped}
-              answer={question.answer}
+              isSelected={index === 0 && true}
+              skiped={skiped}
+              answer={answer}
+              disabled={disabled}
             />
           );
         })}
       </div>
-      <Hint
-        title="Mais fácil de marcar o seu cartão"
-        description="Para marcar, use as letras correspondentes a sua resposta e as setas para navegar entre questões"
-      />
     </div>
   );
 };
