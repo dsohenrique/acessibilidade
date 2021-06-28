@@ -7,31 +7,9 @@ export const Question = ({
   isSelected,
   answer,
   skiped,
-  disabled
+  disabled,
+  onClick
 }) => {
-  const clickHandler = ({ target }) => {
-    const buttons = document.querySelector(`#${id}`).querySelectorAll('button');
-    let hasAnswer = false;
-    buttons.forEach(button => {
-      if (button.classList.contains('answer')) hasAnswer = true;
-      button.classList.remove('answer');
-      button.name === target.name && button.classList.add('answer');
-    });
-    skiped && document.querySelector(`#${id}`).classList.remove('skiped');
-    if (hasAnswer) {
-      console.log(id);
-      document.querySelectorAll('.wrapper').forEach(wrapper => {
-        if (wrapper.id === id) {
-          wrapper.classList.add('selected');
-        } else {
-          wrapper.classList.remove('selected');
-        }
-      });
-    } else {
-      sendNextQuestion();
-    }
-  };
-
   const sendNextQuestion = () => {
     document
       .querySelectorAll('.wrapper')
@@ -60,9 +38,7 @@ export const Question = ({
               } ${disabled && 'disabled'}`}
               name={alternative}
               //TODO: CLick deve ser passado por parâmetro para que possa alterar o estado das questões pelo questionIndex
-              onClick={evt =>
-                !evt.target.classList.contains('disabled') && clickHandler(evt)
-              }
+              onClick={onClick}
             >
               {alternative.toUpperCase()}
             </button>
