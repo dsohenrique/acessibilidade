@@ -90,7 +90,7 @@ export const Etapa5 = () => {
 
   const arrowDownHandler = () => {
     const nextQuestion = questions[questionIndex + 1];
-    console.log(nextQuestion);
+    console.log(questions, nextQuestion);
     if (!nextQuestion?.skiped && !nextQuestion?.answer) return;
     sendNextQuestion();
   };
@@ -123,16 +123,23 @@ export const Etapa5 = () => {
 
   const clickHandler = ({ target }, index, skiped) => {
     console.log('clicou', target);
-    const buttons = document
-      .querySelector(`#question-${index}`)
-      .querySelectorAll('button');
+    setQuestionIndex(index);
+    document.querySelector('.selected').classList.remove('selected');
+    const question = document.querySelector(`#question-${index}`);
+    question.classList.add('selected');
+
+    const buttons = question.querySelectorAll('button');
+
     let hasAnswer = false;
     buttons.forEach(button => {
-      if (button.classList.contains('answer')) hasAnswer = true;
+      if (button.classList.contains('answer')) {
+        hasAnswer = true;
+      }
       button.classList.remove('answer');
       button.name === target.name && button.classList.add('answer');
       setAnswer(target.name);
     });
+
     skiped &&
       document.querySelector(`#question-${index}`).classList.remove('skiped');
     if (hasAnswer) {
