@@ -8,27 +8,32 @@ export const Question = ({
   answer,
   skiped,
   disabled,
-  clickHandler
+  clickHandler,
+  tabIndex
 }) => {
   const alternatives = ['a', 'b', 'c', 'd', 'e'];
 
   return (
     <div
-      tabIndex={0}
       id={id}
       className={`wrapper ${isSelected ? 'selected' : ''} ${
         skiped ? 'skiped' : ''
       }`}
       data={position}
     >
-      <div id={id} className="question" tabIndex={1}>
-        asdasdadadads
+      <div
+        id={id}
+        className="question"
+        tabIndex={tabIndex}
+        aria-label={`Questão número ${position}, pressione tab para ir para as alternativas e pressione enter para selecionar`}
+      >
         <span className="position">{`${position}.`}</span>
         {alternatives.map((alternative, index) => {
           return (
             <button
-              tabIndex={index + 2}
+              tabIndex={(tabIndex += 1)}
               data={position - 1}
+              aria-label={`alternativa ${alternative}`}
               className={`alternative ${
                 answer === alternative ? 'answer' : ''
               } ${disabled ? 'disabled' : ''}`}
@@ -40,7 +45,11 @@ export const Question = ({
           );
         })}
       </div>
-      <div className="hinter">
+      <div
+        tabIndex={(tabIndex += 1)}
+        className="hinter"
+        aria-label={`Pressione espaço caso tenha pulado a questão número ${position}`}
+      >
         <span>Não respondi essa questão</span>
       </div>
     </div>

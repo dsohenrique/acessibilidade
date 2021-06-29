@@ -4,7 +4,6 @@ import { BackArrow } from '../components/backArrow';
 
 export const Etapa5 = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
-
   const [questions, setQuestions] = useState([
     {
       id: 0,
@@ -17,19 +16,19 @@ export const Etapa5 = () => {
       answer: '',
       skiped: false,
       disabled: true
-    },
-    {
-      id: 2,
-      answer: '',
-      skiped: false,
-      disabled: true
-    },
-    {
-      id: 3,
-      answer: '',
-      skiped: false,
-      disabled: true
     }
+    // {
+    //   id: 2,
+    //   answer: '',
+    //   skiped: false,
+    //   disabled: true
+    // },
+    // {
+    //   id: 3,
+    //   answer: '',
+    //   skiped: false,
+    //   disabled: true
+    // }
   ]);
 
   const setAnswer = (answer, id) => {
@@ -152,22 +151,22 @@ export const Etapa5 = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('keyup', keyHandler);
-    document.querySelectorAll('.alternative').forEach(alternative => {
-      alternative.addEventListener('click', ({ target }) =>
-        setQuestionIndex(+target.getAttribute('data'))
-      );
-    });
-    return () => {
-      window.removeEventListener('keyup', keyHandler);
-      document.querySelectorAll('.alternative').forEach(alternative => {
-        alternative.addEventListener('click', ({ target }) =>
-          setQuestionIndex(+target.getAttribute('data'))
-        );
-      });
-    };
+    // window.addEventListener('keyup', keyHandler);
+    // document.querySelectorAll('.alternative').forEach(alternative => {
+    //   alternative.addEventListener('click', ({ target }) =>
+    //     setQuestionIndex(+target.getAttribute('data'))
+    //   );
+    // });
+    // return () => {
+    //   window.removeEventListener('keyup', keyHandler);
+    //   document.querySelectorAll('.alternative').forEach(alternative => {
+    //     alternative.addEventListener('click', ({ target }) =>
+    //       setQuestionIndex(+target.getAttribute('data'))
+    //     );
+    //   });
+    // };
   });
-
+  let tabIndex = 1;
   return (
     <div className="etapa-5">
       <div className="header">
@@ -179,6 +178,7 @@ export const Etapa5 = () => {
       </div>
       <div className="question-wrapper">
         {questions.map(({ skiped, answer, isSelected, disabled }, index) => {
+          tabIndex += 6;
           return (
             <Question
               id={`question-${index}`}
@@ -189,6 +189,7 @@ export const Etapa5 = () => {
               answer={answer}
               disabled={disabled}
               clickHandler={evt => clickHandler(evt, index, skiped)}
+              tabIndex={tabIndex}
             />
           );
         })}
