@@ -81,10 +81,10 @@ export const Etapa5 = () => {
   };
 
   const arrowUpHandler = () => {
-    console.log('up', questionIndex);
     if (questions[questionIndex - 1]) {
       setSelected('up');
       setQuestionIndex(questionIndex - 1);
+      console.log('up', questionIndex);
     }
   };
 
@@ -122,37 +122,33 @@ export const Etapa5 = () => {
   };
 
   const clickHandler = ({ target }, index, skiped) => {
-    console.log('clicou', target);
-    setQuestionIndex(index);
-    document.querySelector('.selected').classList.remove('selected');
-    const question = document.querySelector(`#question-${index}`);
-    question.classList.add('selected');
-
-    const buttons = question.querySelectorAll('button');
-
-    let hasAnswer = false;
-    buttons.forEach(button => {
-      if (button.classList.contains('answer')) {
-        hasAnswer = true;
-      }
-      button.classList.remove('answer');
-      button.name === target.name && button.classList.add('answer');
-      setAnswer(target.name);
-    });
-
-    skiped &&
-      document.querySelector(`#question-${index}`).classList.remove('skiped');
-    if (hasAnswer) {
-      document.querySelectorAll('.wrapper').forEach(wrapper => {
-        if (wrapper.id === `question-${index}`) {
-          wrapper.classList.add('selected');
-        } else {
-          wrapper.classList.remove('selected');
-        }
-      });
-    } else {
-      sendNextQuestion();
+    if (questionIndex !== index) {
+      setQuestionIndex(index);
+      console.log('_____________', index, questionIndex);
     }
+
+    // document.querySelector('.selected').classList.remove('selected');
+    // const question = document.querySelector(`#question-${index}`);
+    // console.log('------------------------', question);
+    // question.classList.add('selected');
+    // let hasAnswer = false;
+    // const buttons = question.querySelectorAll('button');
+    // buttons.forEach(button => {
+    //   console.log(button);
+    //   if (button.classList.contains('answer')) {
+    //     hasAnswer = true;
+    //     button.classList.remove('answer');
+    //   }
+    //   if (button.name === target.name) {
+    //     target.classList.add('answer');
+    //     console.log(target.name);
+    //     setAnswer(target.name);
+    //   }
+    // });
+    // skiped &&
+    //   document.querySelector(`#question-${index}`).classList.remove('skiped');
+    // console.log('has answer', hasAnswer);
+    // !hasAnswer && sendNextQuestion();
   };
 
   useEffect(() => {
@@ -177,6 +173,7 @@ export const Etapa5 = () => {
         className="question-wrapper"
         tabIndex="0"
         style={{ outline: 'none' }}
+        onClick={evt => clickHandler(evt, index, skiped)}
       >
         {questions.map(({ skiped, answer, isSelected, disabled }, index) => {
           return (
@@ -188,10 +185,6 @@ export const Etapa5 = () => {
               skiped={skiped}
               answer={answer}
               disabled={disabled}
-              onClick={evt =>
-                !evt.target.classList.contains('disabled') &&
-                clickHandler(evt, index, skiped)
-              }
             />
           );
         })}
