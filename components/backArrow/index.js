@@ -12,7 +12,6 @@ export const BackArrow = ({ to }) => {
   return (
     <div className="back">
       <Link
-        tabIndex="0"
         className="back-arrow"
         onClick={() => back()}
         onKeyDown={({ key }) => key === ' ' && back()}

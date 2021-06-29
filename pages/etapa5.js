@@ -4,48 +4,52 @@ import { BackArrow } from '../components/backArrow';
 
 export const Etapa5 = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
+
   const [questions, setQuestions] = useState([
     {
       id: 0,
       answer: '',
       skiped: false,
       disabled: false
-    },
-    {
-      id: 1,
-      answer: '',
-      skiped: false,
-      disabled: true
-    },
-    {
-      id: 2,
-      answer: '',
-      skiped: false,
-      disabled: true
-    },
-    {
-      id: 3,
-      answer: '',
-      skiped: false,
-      disabled: true
     }
+    // {
+    //   id: 1,
+    //   answer: '',
+    //   skiped: false,
+    //   disabled: true
+    // },
+    // {
+    //   id: 2,
+    //   answer: '',
+    //   skiped: false,
+    //   disabled: true
+    // },
+    // {
+    //   id: 3,
+    //   answer: '',
+    //   skiped: false,
+    //   disabled: true
+    // }
   ]);
 
-  const setAnswer = answer => {
+  const setAnswer = (answer, id) => {
     const newQuestions = [...questions];
-    newQuestions[questionIndex].answer = answer;
-    newQuestions[questionIndex].skiped = false;
-    newQuestions[questionIndex].disabled = false;
-
+    const idx = id || questionIndex;
+    newQuestions[idx].answer = answer;
+    newQuestions[idx].skiped = false;
+    newQuestions[idx].disabled = false;
     setQuestions(newQuestions);
+    setQuestionIndex(() => idx);
   };
 
   const setSelected = direction => {
     let index;
     if (direction === 'up') {
       index = questionIndex - 1;
+      setQuestionIndex(() => questionIndex - 1);
     } else if (direction === 'down') {
       index = questionIndex + 1;
+      setQuestionIndex(() => questionIndex + 1);
     }
     document.querySelector(`#question-${index}`).classList.add('selected');
     document
@@ -68,7 +72,6 @@ export const Etapa5 = () => {
         .querySelector(`#question-${questionIndex + 1}`)
         ?.querySelectorAll('button')
         .forEach(button => button.classList.remove('disabled'));
-      setQuestionIndex(questionIndex + 1);
     }
   };
 
@@ -83,14 +86,13 @@ export const Etapa5 = () => {
   const arrowUpHandler = () => {
     if (questions[questionIndex - 1]) {
       setSelected('up');
-      setQuestionIndex(questionIndex - 1);
       console.log('up', questionIndex);
     }
   };
 
   const arrowDownHandler = () => {
-    const nextQuestion = questions[questionIndex + 1];
-    console.log(questions, nextQuestion);
+    const nextQuestion = questions[+questionIndex + 1];
+    console.log(questionIndex, nextQuestion, typeof questionIndex);
     if (!nextQuestion?.skiped && !nextQuestion?.answer) return;
     sendNextQuestion();
   };
@@ -122,37 +124,43 @@ export const Etapa5 = () => {
   };
 
   const clickHandler = ({ target }, index, skiped) => {
-    if (questionIndex !== index) {
-      setQuestionIndex(index);
-      console.log('_____________', index, questionIndex);
-    }
-
-    // document.querySelector('.selected').classList.remove('selected');
-    // const question = document.querySelector(`#question-${index}`);
-    // console.log('------------------------', question);
-    // question.classList.add('selected');
-    // let hasAnswer = false;
-    // const buttons = question.querySelectorAll('button');
-    // buttons.forEach(button => {
-    //   console.log(button);
-    //   if (button.classList.contains('answer')) {
-    //     hasAnswer = true;
-    //     button.classList.remove('answer');
-    //   }
-    //   if (button.name === target.name) {
-    //     target.classList.add('answer');
-    //     console.log(target.name);
-    //     setAnswer(target.name);
-    //   }
-    // });
-    // skiped &&
-    //   document.querySelector(`#question-${index}`).classList.remove('skiped');
-    // console.log('has answer', hasAnswer);
-    // !hasAnswer && sendNextQuestion();
+    const questionId = target.getAttribute('data');
+    console.log('clicked question index', questionIndex);
+    document.querySelector('.selected').classList.remove('selected');
+    const question = document.querySelector(`#question-${questionId}`);
+    question.classList.add('selected');
+    let hasAnswer = false;
+    const buttons = question.querySelectorAll('button');
+    buttons.forEach(button => {
+      if (button.classList.contains('answer')) {
+        hasAnswer = true;
+      }
+      if (button.name === target.name) {
+        target.classList.add('answer');
+        console.log(target.name);
+        setAnswer(target.name, questionId);
+      } else {
+        button.classList.remove('answer');
+      }
+    });
+    skiped &&
+      document
+        .querySelector(`#question-${questionId}`)
+        .classList.remove('skiped');
+    console.log('has answer', hasAnswer);
+    !hasAnswer && sendNextQuestion();
   };
 
   useEffect(() => {
-    window.addEventListener('keyup', keyHandler);
+    'keyup', keyHandler;
+    document.querySelectorAll('.alternative').forEach(alternative => {
+      alternative.addEventListener('click', ({ target }) =>
+        setQuestionIndex(+target.getAttribute('data'))
+      );
+    });
+    window.addEventListener('load', () =>
+      document.querySelector(`#question-${0}`).focus()
+    );
     return () => {
       window.removeEventListener('keyup', keyHandler);
     };
@@ -163,18 +171,11 @@ export const Etapa5 = () => {
       <div className="header">
         <div className="main">
           <BackArrow className="going-back" to="/etapa4" />
-          <button className="login-button" tabIndex="0">
-            Salvar
-          </button>
+          <button className="login-button">Salvar</button>
         </div>
         <div className="counter" />
       </div>
-      <div
-        className="question-wrapper"
-        tabIndex="0"
-        style={{ outline: 'none' }}
-        onClick={evt => clickHandler(evt, index, skiped)}
-      >
+      <div className="question-wrapper">
         {questions.map(({ skiped, answer, isSelected, disabled }, index) => {
           return (
             <Question
@@ -185,6 +186,7 @@ export const Etapa5 = () => {
               skiped={skiped}
               answer={answer}
               disabled={disabled}
+              clickHandler={evt => clickHandler(evt, index, skiped)}
             />
           );
         })}
