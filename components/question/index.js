@@ -11,6 +11,7 @@ export const Question = ({
   clickHandler
 }) => {
   const alternatives = ['a', 'b', 'c', 'd', 'e'];
+
   return (
     <div
       tabIndex={0}
@@ -20,14 +21,13 @@ export const Question = ({
       }`}
       data={position}
     >
-      <div id={id} className="question">
-        <span className="position" style={{ display: 'none' }}>
-          Questão 01, para responder tecla direita
-        </span>
+      <div id={id} className="question" tabIndex={1}>
+        asdasdadadads
         <span className="position">{`${position}.`}</span>
         {alternatives.map((alternative, index) => {
           return (
             <button
+              tabIndex={index + 2}
               data={position - 1}
               className={`alternative ${
                 answer === alternative ? 'answer' : ''

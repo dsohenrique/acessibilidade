@@ -11,25 +11,25 @@ export const Etapa5 = () => {
       answer: '',
       skiped: false,
       disabled: false
+    },
+    {
+      id: 1,
+      answer: '',
+      skiped: false,
+      disabled: true
+    },
+    {
+      id: 2,
+      answer: '',
+      skiped: false,
+      disabled: true
+    },
+    {
+      id: 3,
+      answer: '',
+      skiped: false,
+      disabled: true
     }
-    // {
-    //   id: 1,
-    //   answer: '',
-    //   skiped: false,
-    //   disabled: true
-    // },
-    // {
-    //   id: 2,
-    //   answer: '',
-    //   skiped: false,
-    //   disabled: true
-    // },
-    // {
-    //   id: 3,
-    //   answer: '',
-    //   skiped: false,
-    //   disabled: true
-    // }
   ]);
 
   const setAnswer = (answer, id) => {
@@ -152,17 +152,19 @@ export const Etapa5 = () => {
   };
 
   useEffect(() => {
-    'keyup', keyHandler;
+    window.addEventListener('keyup', keyHandler);
     document.querySelectorAll('.alternative').forEach(alternative => {
       alternative.addEventListener('click', ({ target }) =>
         setQuestionIndex(+target.getAttribute('data'))
       );
     });
-    window.addEventListener('load', () =>
-      document.querySelector(`#question-${0}`).focus()
-    );
     return () => {
       window.removeEventListener('keyup', keyHandler);
+      document.querySelectorAll('.alternative').forEach(alternative => {
+        alternative.addEventListener('click', ({ target }) =>
+          setQuestionIndex(+target.getAttribute('data'))
+        );
+      });
     };
   });
 
