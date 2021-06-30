@@ -17,15 +17,21 @@ export const Etapa2 = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('keyup', eventHandler);
+    window.addEventListener(
+      'keyup',
+      ({ key }) => key !== 'Enter' && eventHandler
+    );
     return () => {
-      window.removeEventListener('keyup', eventHandler);
+      window.removeEventListener(
+        'keyup',
+        ({ key }) => key !== 'Enter' && eventHandler
+      );
     };
   });
 
   return (
     <>
-      <BackArrow tabIndex="0" to="/" />
+      <BackArrow tabIndex="-1" to="/" />
       <div className="etapa">
         <Heading tabIndex="1">
           Qual foi a lingua estrangeira que você escolheu?
@@ -59,7 +65,7 @@ export const Etapa2 = () => {
         <Button
           tabIndex="4"
           keyPressHandler={({ key }) =>
-            key === 'Enter' && history.push('/etapa2')
+            key === 'Enter' && history.push('/etapa3')
           }
           to="/etapa3"
         >

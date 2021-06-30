@@ -13,22 +13,54 @@ export const Formulary = () => {
     keyHandler(evt, history, '/etapa5', '/etapa3');
   };
   useEffect(() => {
-    window.addEventListener('keydown', eventHandler);
+    window.addEventListener(
+      'keyup',
+      ({ key }) => key !== 'Enter' && eventHandler
+    );
     return () => {
-      window.addEventListener('keydown', eventHandler);
+      window.removeEventListener(
+        'keyup',
+        ({ key }) => key !== 'Enter' && eventHandler
+      );
     };
   });
 
   return (
     <div className="form">
-      <Heading>Pra finalizar, preenche esses últimos dados pra gente</Heading>
+      <Heading tabIndex="1">
+        Pra finalizar, preenche esses últimos dados pra gente
+      </Heading>
       <div className="inputs">
-        <Input type="text" placeholder="Nome" tabIndex="0" autoFocus />
-        <Input type="text" placeholder="Telefone" />
-        <Input type="text" placeholder="E-mail" />
-        <Checkbox />
+        <Input
+          type="text"
+          placeholder="Nome"
+          tabIndex="1"
+          ariaLabel="Digite seu nome"
+        />
+        <Input
+          type="text"
+          tabIndex="2"
+          placeholder="Telefone"
+          ariaLabel="Digite seu Telefone"
+        />
+        <Input
+          type="text"
+          tabIndex="3"
+          placeholder="E-mail"
+          ariaLabel="digite seu E-mail"
+        />
+        <Checkbox tabIndex="4" />
       </div>
-      <Button to="/etapa5">Preencher o cartão resposta</Button>
+      <Button
+        tabIndex="5"
+        to="/etapa5"
+        keyPressHandler={({ key }) =>
+          key === 'Enter' && history.push('/etapa3')
+        }
+        to="/etapa5"
+      >
+        Preencher o cartão resposta
+      </Button>
     </div>
   );
 };
