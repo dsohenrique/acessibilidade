@@ -24,10 +24,12 @@ export const Etapa1 = () => {
 
   return (
     <div className="etapa">
-      <Heading>Para começar, selecione o dia da sua prova</Heading>
+      <Heading tabIndex="1">Para começar, selecione o dia da sua prova</Heading>
       <div>
-        <div tabIndex="0" className="selector-wrapper">
+        <div className="selector-wrapper">
           <Selector
+            tabIndex="2"
+            ariaLabel="Pressione enter para selecionar o primeiro dia do ENEM 19 de Junho"
             keyNumber="1"
             value="Dia 1"
             date="19/06/2021"
@@ -35,6 +37,8 @@ export const Etapa1 = () => {
             color="#4AFFB1"
           />
           <Selector
+            tabIndex="3"
+            ariaLabel="Pressione enter para selecionar o primeiro dia do ENEM 20 de Junho"
             keyNumber="2"
             value="Dia 2"
             date="20/06/2021"
@@ -43,7 +47,9 @@ export const Etapa1 = () => {
           />
         </div>
       </div>
-      <Button to="etapa2">Próxima Etapa</Button>
+      <Button tabIndex="4" to="etapa2">
+        Próxima Etapa
+      </Button>
       <Hint
         title="Mais fácil de marcar o seu cartão"
         description="Para marcar, use as letras correspondentes a sua resposta e as setas para navegar entre questões"

@@ -8,10 +8,14 @@ export const Selector = ({
   date,
   selected,
   color,
-  border
+  border,
+  tabIndex,
+  ariaLabel
 }) => {
   return (
     <div
+      tabIndex={tabIndex}
+      aria-label={ariaLabel}
       id={keyNumber}
       className="selector"
       style={{ backgroundColor: selected && color }}

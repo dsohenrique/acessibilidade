@@ -1,6 +1,10 @@
 import React from 'react';
 import './styles';
 
-export const Heading = ({ children }) => {
-  return <h5 className="heading">{children}</h5>;
+export const Heading = ({ tabIndex, children }) => {
+  return (
+    <h5 tabIndex={tabIndex} className="heading">
+      {children}
+    </h5>
+  );
 };

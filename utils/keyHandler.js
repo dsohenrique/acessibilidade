@@ -16,9 +16,7 @@ export const keyHandler = (evt, history, nextPage, prevPage) => {
     case '4':
       choosedSelector = key;
       break;
-    case 'Enter':
-      nextPage && navigate(history, nextPage);
-      break;
+
     case 'Backspace':
       prevPage && navigate(history, prevPage);
       break;
