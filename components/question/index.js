@@ -9,10 +9,14 @@ export const Question = ({
   skiped,
   disabled,
   clickHandler,
-  tabIndex
+  tabIndex,
+  keyPressHandler
 }) => {
   const alternatives = ['a', 'b', 'c', 'd', 'e'];
-
+  const ariaLabel =
+    position === 1
+      ? `Questão número ${position}, pressione tab para ir para as alternativas e pressione enter para selecionar. ou simplemente pressione a tecla correspondente à alternativa. caso tenha pulado a questão basta pressionar espaço.`
+      : `Questão número ${position}`;
   return (
     <div
       id={id}
@@ -25,9 +29,14 @@ export const Question = ({
         id={id}
         className="question"
         tabIndex={tabIndex}
-        aria-label={`Questão número ${position}, pressione tab para ir para as alternativas e pressione enter para selecionar`}
+        onKeyPress={keyPressHandler}
+        aria-label={ariaLabel}
       >
-        <span className="position">{`${position}.`}</span>
+        <div
+          tabIndex="-1"
+          aria-hidden="true"
+          className="position"
+        >{`${position}.`}</div>
         {alternatives.map((alternative, index) => {
           return (
             <button
@@ -45,11 +54,7 @@ export const Question = ({
           );
         })}
       </div>
-      <div
-        tabIndex={(tabIndex += 1)}
-        className="hinter"
-        aria-label={`Pressione espaço caso tenha pulado a questão número ${position}`}
-      >
+      <div tabIndex="-1" className="hinter" aria-hidden="true">
         <span>Não respondi essa questão</span>
       </div>
     </div>

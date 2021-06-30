@@ -28,11 +28,25 @@ export const Selector = ({
         });
       }}
     >
-      <div className="keyNumber">{keyNumber}</div>
+      <div id={keyNumber} className="keyNumber">
+        {keyNumber}
+      </div>
       {icon && <span className="icon">{icon}</span>}
-      <span className="value">{value}</span>
-      {date && <span className="date">{date}</span>}
-      {border && <div className="color" style={{ backgroundColor: color }} />}
+      <span id={keyNumber} className="value">
+        {value}
+      </span>
+      {date && (
+        <span id={keyNumber} className="date">
+          {date}
+        </span>
+      )}
+      {border && (
+        <div
+          id={keyNumber}
+          className="color"
+          style={{ backgroundColor: color }}
+        />
+      )}
     </div>
   );
 };

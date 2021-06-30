@@ -59,7 +59,7 @@ export const Etapa5 = () => {
   const sendNextQuestion = () => {
     const nextQuestion = questions[questionIndex + 1];
     if (nextQuestion) {
-      setSelected('down');
+      //setSelected('down');
 
       document
         .querySelectorAll('.wrapper')
@@ -79,12 +79,12 @@ export const Etapa5 = () => {
     newQuestions[questionIndex].answer = '';
     newQuestions[questionIndex].skiped = true;
     setQuestions(newQuestions);
-    sendNextQuestion();
+    //sendNextQuestion();
   };
 
   const arrowUpHandler = () => {
     if (questions[questionIndex - 1]) {
-      setSelected('up');
+      //setSelected('up');
       console.log('up', questionIndex);
     }
   };
@@ -93,11 +93,12 @@ export const Etapa5 = () => {
     const nextQuestion = questions[+questionIndex + 1];
     console.log(questionIndex, nextQuestion, typeof questionIndex);
     if (!nextQuestion?.skiped && !nextQuestion?.answer) return;
-    sendNextQuestion();
+    //sendNextQuestion();
   };
 
   //TODO: tab deve iterarar as alternativas de cada questão
   const keyHandler = ({ key }) => {
+    console.log('here');
     if (key === 'ArrowUp') {
       arrowUpHandler();
     } else if (key === 'ArrowDown') {
@@ -118,16 +119,16 @@ export const Etapa5 = () => {
           button => button.name !== key && button.classList.remove('answer')
         );
       setAnswer(key);
-      sendNextQuestion();
+      ////sendNextQuestion();
     }
   };
 
   const clickHandler = ({ target }, index, skiped) => {
     const questionId = target.getAttribute('data');
     console.log('clicked question index', questionIndex);
-    document.querySelector('.selected').classList.remove('selected');
+    //document.querySelector('.selected').classList.remove('selected');
     const question = document.querySelector(`#question-${questionId}`);
-    question.classList.add('selected');
+    //question.classList.add('selected');
     let hasAnswer = false;
     const buttons = question.querySelectorAll('button');
     buttons.forEach(button => {
@@ -147,7 +148,7 @@ export const Etapa5 = () => {
         .querySelector(`#question-${questionId}`)
         .classList.remove('skiped');
     console.log('has answer', hasAnswer);
-    !hasAnswer && sendNextQuestion();
+    //!hasAnswer && //sendNextQuestion();
   };
 
   useEffect(() => {
@@ -189,12 +190,15 @@ export const Etapa5 = () => {
               id={`question-${index}`}
               key={index}
               position={index + 1}
-              isSelected={(index === 0 && true) || isSelected}
+              isSelected={true}
               skiped={skiped}
               answer={answer}
-              disabled={disabled}
+              disabled={false}
               clickHandler={evt => clickHandler(evt, index, skiped)}
               tabIndex={tabIndex}
+              keyPressHandler={evt => {
+                keyHandler(evt);
+              }}
             />
           );
           tabIndex += 7;
