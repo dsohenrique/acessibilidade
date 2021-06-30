@@ -2,9 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './styles';
 
-export const Button = ({ tabIndex, ariaLabel, to, children }) => {
+export const Button = ({
+  keyPressHandler,
+  tabIndex,
+  ariaLabel,
+  to,
+  children
+}) => {
   return (
-    <div tabIndex={tabIndex} aria-label={ariaLabel}>
+    <div
+      onKeyPress={keyPressHandler}
+      tabIndex={tabIndex}
+      aria-label={ariaLabel}
+    >
       <Link className="button" to={to}>
         {children}
       </Link>

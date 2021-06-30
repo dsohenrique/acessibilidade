@@ -5,23 +5,23 @@ export const keyHandler = (evt, history, nextPage, prevPage) => {
   const { key } = evt;
   switch (key) {
     case '1':
-      choosedSelector = key;
+      choosedSelector = '1';
       break;
     case '2':
-      choosedSelector = key;
+      choosedSelector = '2';
       break;
     case '3':
-      choosedSelector = key;
+      choosedSelector = '3';
       break;
     case '4':
-      choosedSelector = key;
+      choosedSelector = '4';
       break;
 
     case 'Backspace':
       prevPage && navigate(history, prevPage);
       break;
     default:
-      choosedSelector = key;
+      choosedSelector = '';
       break;
   }
   return choosedSelector;

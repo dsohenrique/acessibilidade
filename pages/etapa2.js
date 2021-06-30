@@ -19,32 +19,52 @@ export const Etapa2 = () => {
   useEffect(() => {
     window.addEventListener('keyup', eventHandler);
     return () => {
-      window.addEventListener('keyup', eventHandler);
+      window.removeEventListener('keyup', eventHandler);
     };
   });
 
   return (
     <>
-      <BackArrow to="/" />
+      <BackArrow tabIndex="0" to="/" />
       <div className="etapa">
-        <Heading>Qual foi a lingua estrangeira que você escolheu?</Heading>
+        <Heading tabIndex="1">
+          Qual foi a lingua estrangeira que você escolheu?
+        </Heading>
         <div>
           <div className="selector-wrapper">
             <Selector
+              tabIndex="2"
+              ariaLabel="Pressione enter para selecionar prova de Inglês"
               keyNumber="1"
               value="Inglês"
               selected={choosedSelector === '1'}
               color="#4AFFB1"
+              keyPressHandler={({ key }) =>
+                (key === 'Enter' || key === '1') && setChoosedSelector('1')
+              }
             />
             <Selector
+              tabIndex="3"
+              ariaLabel="Pressione enter para selecionar prova de Espanhol"
               keyNumber="2"
               value="Espanhol"
               selected={choosedSelector === '2'}
               color="#4AFFB1"
+              keyPressHandler={({ key }) =>
+                (key === 'Enter' || key === '2') && setChoosedSelector('2')
+              }
             />
           </div>
         </div>
-        <Button to="/etapa3">Próxima Etapa</Button>
+        <Button
+          tabIndex="4"
+          keyPressHandler={({ key }) =>
+            key === 'Enter' && history.push('/etapa2')
+          }
+          to="/etapa3"
+        >
+          Próxima Etapa
+        </Button>
       </div>
     </>
   );

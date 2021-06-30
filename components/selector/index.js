@@ -10,10 +10,12 @@ export const Selector = ({
   color,
   border,
   tabIndex,
-  ariaLabel
+  ariaLabel,
+  keyPressHandler
 }) => {
   return (
     <div
+      onKeyPress={keyPressHandler}
       tabIndex={tabIndex}
       aria-label={ariaLabel}
       id={keyNumber}

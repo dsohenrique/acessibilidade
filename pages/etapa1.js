@@ -16,9 +16,15 @@ export const Etapa1 = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('keyup', eventHandler);
+    window.addEventListener(
+      'keyup',
+      ({ key }) => key !== 'Enter' && eventHandler
+    );
     return () => {
-      window.addEventListener('keyup', eventHandler);
+      window.removeEventListener(
+        'keyup',
+        ({ key }) => key !== 'Enter' && eventHandler
+      );
     };
   });
 
@@ -35,25 +41,33 @@ export const Etapa1 = () => {
             date="19/06/2021"
             selected={choosedSelector === '1'}
             color="#4AFFB1"
+            keyPressHandler={({ key }) =>
+              (key === 'Enter' || key === '1') && setChoosedSelector('1')
+            }
           />
           <Selector
             tabIndex="3"
-            ariaLabel="Pressione enter para selecionar o primeiro dia do ENEM 20 de Junho"
+            ariaLabel="Pressione enter para selecionar o segundo dia do ENEM 20 de Junho"
             keyNumber="2"
             value="Dia 2"
             date="20/06/2021"
             selected={choosedSelector === '2'}
             color="#4AFFB1"
+            keyPressHandler={({ key }) =>
+              (key === 'Enter' || key === '2') && setChoosedSelector('2')
+            }
           />
         </div>
       </div>
-      <Button tabIndex="4" to="etapa2">
+      <Button
+        keyPressHandler={({ key }) =>
+          key === 'Enter' && history.push('/etapa2')
+        }
+        tabIndex="4"
+        to="etapa2"
+      >
         Próxima Etapa
       </Button>
-      <Hint
-        title="Mais fácil de marcar o seu cartão"
-        description="Para marcar, use as letras correspondentes a sua resposta e as setas para navegar entre questões"
-      />
     </div>
   );
 };

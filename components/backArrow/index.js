@@ -4,13 +4,13 @@ import { useHistory } from 'react-router-dom';
 
 import './styles';
 
-export const BackArrow = ({ to }) => {
+export const BackArrow = ({ tabIndex, to }) => {
   const history = useHistory();
   const back = () => {
     history.push(to);
   };
   return (
-    <div className="back">
+    <div tabIndex={tabIndex} className="back">
       <Link
         className="back-arrow"
         onClick={() => back()}
