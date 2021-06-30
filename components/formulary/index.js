@@ -55,7 +55,7 @@ export const Formulary = () => {
         tabIndex="5"
         to="/etapa5"
         keyPressHandler={({ key }) =>
-          key === 'Enter' && history.push('/etapa3')
+          key === 'Enter' && history.push('/etapa5')
         }
         to="/etapa5"
       >

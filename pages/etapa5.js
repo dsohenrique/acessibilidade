@@ -171,15 +171,20 @@ export const Etapa5 = () => {
     <div className="etapa-5">
       <div className="header">
         <div className="main">
-          <BackArrow className="going-back" to="/etapa4" />
-          <button className="login-button">Salvar</button>
+          <BackArrow tabIndex="-1" className="going-back" to="/etapa4" />
+          <button tabIndex="-1" className="login-button">
+            Salvar
+          </button>
+          <span className="sr-only" tabIndex={tabIndex++}>
+            Agora preencha o gabarito, pressione tab para ir para a primeira
+            questão
+          </span>
         </div>
         <div className="counter" />
       </div>
       <div className="question-wrapper">
         {questions.map(({ skiped, answer, isSelected, disabled }, index) => {
-          tabIndex += 6;
-          return (
+          const question = (
             <Question
               id={`question-${index}`}
               key={index}
@@ -192,6 +197,8 @@ export const Etapa5 = () => {
               tabIndex={tabIndex}
             />
           );
+          tabIndex += 7;
+          return question;
         })}
       </div>
     </div>
