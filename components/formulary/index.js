@@ -50,10 +50,6 @@ export const Formulary = () => {
       <Button
         tabIndex="7"
         to="/etapa5"
-        keyPressHandler={({ key }) =>
-          key === 'Enter' && history.push('/etapa5')
-        }
-        to="/etapa5"
         ariaLabel="Preencher o cartão resposta, Tecla Enter"
       >
         Preencher o cartão resposta

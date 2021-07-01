@@ -23,7 +23,7 @@ export const Etapa1 = () => {
     return () => {
       window.removeEventListener(
         'keyup',
-        ({ key }) => key !== 'Tab' && eventHandler(key)
+        ({ key }) => key && key !== 'Tab' && eventHandler(key)
       );
     };
   });
@@ -69,14 +69,7 @@ export const Etapa1 = () => {
           />
         </div>
       </div>
-      <Button
-        keyPressHandler={({ key }) =>
-          key === 'Enter' && history.push('/etapa2')
-        }
-        tabIndex="5"
-        to="etapa2"
-        ariaLabel="Próxima etapa, Tecla Enter"
-      >
+      <Button tabIndex="5" to="etapa2" ariaLabel="Próxima etapa, Tecla Enter">
         Próxima Etapa
       </Button>
     </div>

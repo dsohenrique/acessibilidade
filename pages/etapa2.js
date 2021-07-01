@@ -19,12 +19,12 @@ export const Etapa2 = () => {
   useEffect(() => {
     window.addEventListener(
       'keyup',
-      ({ key }) => key !== 'Enter' && key !== 'Tab' && eventHandler(key)
+      ({ key }) => key !== 'Tab' && eventHandler(key)
     );
     return () => {
       window.removeEventListener(
         'keyup',
-        ({ key }) => key !== 'Enter' && key !== 'Tab' && eventHandler(key)
+        ({ key }) => key !== 'Tab' && eventHandler(key)
       );
     };
   });
@@ -73,9 +73,6 @@ export const Etapa2 = () => {
         </div>
         <Button
           tabIndex="5"
-          keyPressHandler={({ key }) =>
-            key === 'Enter' && history.push('/etapa3')
-          }
           to="/etapa3"
           ariaLabel="Próxima etapa, Tecla Enter"
         >
