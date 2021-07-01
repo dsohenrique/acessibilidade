@@ -11,19 +11,19 @@ export const Etapa1 = () => {
   const [choosedSelector, setChoosedSelector] = useState('');
   const history = useHistory();
 
-  const eventHandler = evt => {
-    setChoosedSelector(keyHandler(evt, history, '/etapa2'));
+  const eventHandler = key => {
+    setChoosedSelector(keyHandler(key, history, '/etapa2'));
   };
 
   useEffect(() => {
     window.addEventListener(
       'keyup',
-      ({ key }) => key !== 'Enter' && eventHandler
+      ({ key }) => key !== 'Enter' && key !== 'Tab' && eventHandler(key)
     );
     return () => {
       window.removeEventListener(
         'keyup',
-        ({ key }) => key !== 'Enter' && eventHandler
+        ({ key }) => key !== 'Enter' && key !== 'Tab' && eventHandler(key)
       );
     };
   });
@@ -42,7 +42,8 @@ export const Etapa1 = () => {
             selected={choosedSelector === '1'}
             color="#4AFFB1"
             keyPressHandler={({ key }) =>
-              (key === 'Enter' || key === '1') && setChoosedSelector('1')
+              (key === 'Enter' || key === '1' || choosedSelector === '1') &&
+              setChoosedSelector('1')
             }
           />
           <Selector
@@ -54,7 +55,8 @@ export const Etapa1 = () => {
             selected={choosedSelector === '2'}
             color="#4AFFB1"
             keyPressHandler={({ key }) =>
-              (key === 'Enter' || key === '2') && setChoosedSelector('2')
+              (key === 'Enter' || key === '2' || choosedSelector === '2') &&
+              setChoosedSelector('2')
             }
           />
         </div>

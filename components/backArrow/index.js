@@ -17,7 +17,7 @@ export const BackArrow = ({ tabIndex, to }) => {
         onClick={() => back()}
         onKeyDown={({ key }) => key === ' ' && back()}
       />
-      <span>Tecla Backspace</span>
+      <span>Seta para a direita</span>
     </div>
   );
 };

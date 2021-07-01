@@ -11,19 +11,19 @@ export const Etapa3 = () => {
   const [choosedSelector, setChoosedSelector] = useState('');
   const history = useHistory();
 
-  const eventHandler = evt => {
-    setChoosedSelector(keyHandler(evt, history, '/etapa4', '/etapa2'));
+  const eventHandler = key => {
+    setChoosedSelector(keyHandler(key, history, '/etapa4', '/etapa2'));
   };
 
   useEffect(() => {
     window.addEventListener(
       'keyup',
-      ({ key }) => key !== 'Enter' && eventHandler
+      ({ key }) => key !== 'Enter' && key !== 'Tab' && eventHandler(key)
     );
     return () => {
       window.removeEventListener(
         'keyup',
-        ({ key }) => key !== 'Enter' && eventHandler
+        ({ key }) => key !== 'Enter' && key !== 'Tab' && eventHandler(key)
       );
     };
   });
