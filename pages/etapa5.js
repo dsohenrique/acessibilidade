@@ -59,7 +59,7 @@ export const Etapa5 = () => {
   const sendNextQuestion = () => {
     const nextQuestion = questions[questionIndex + 1];
     if (nextQuestion) {
-      / / / setSelected('down');
+      //setSelected('down');
 
       document
         .querySelectorAll('.wrapper')

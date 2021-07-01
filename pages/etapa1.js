@@ -35,7 +35,7 @@ export const Etapa1 = () => {
         .querySelectorAll('.selector')
         .forEach(selector => (selector.ariaPressed = 'false'));
       target.ariaPressed = 'true';
-      history.push('/etapa2');
+      //history.push('/etapa2');
     }
   };
   return (

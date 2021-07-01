@@ -18,7 +18,7 @@ export const Etapa3 = () => {
   useEffect(() => {
     window.addEventListener(
       'keyup',
-      ({ key }) => {if(key !== 'Tab') eventHandler(key)}
+      ({ key }) => key !== 'Tab' && eventHandler(key)
     );
     return () => {
       window.removeEventListener(
@@ -35,7 +35,7 @@ export const Etapa3 = () => {
         .querySelectorAll('.selector')
         .forEach(selector => (selector.ariaPressed = 'false'));
       target.ariaPressed = 'true';
-      history.push('/etapa4');
+      //history.push('/etapa4');
     }
   };
   return (
