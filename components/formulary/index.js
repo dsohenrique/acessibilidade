@@ -9,55 +9,52 @@ import { keyHandler } from '../../utils/keyHandler';
 import './styles';
 export const Formulary = () => {
   const history = useHistory();
-  const eventHandler = evt => {
-    keyHandler(evt, history, '/etapa5', '/etapa3');
-  };
-  useEffect(() => {
-    window.addEventListener(
-      'keyup',
-      ({ key }) => key !== 'Enter' && eventHandler
-    );
-    return () => {
-      window.removeEventListener(
-        'keyup',
-        ({ key }) => key !== 'Enter' && eventHandler
-      );
-    };
-  });
+  // const eventHandler = key => {
+  //   keyHandler(key, history, '/etapa5', '/etapa3');
+  // };
+  // useEffect(() => {
+  //   document
+  //     .querySelector('.form')
+  //     .addEventListener('keyup', ({ key }) => key !== 'Enter' && eventHandler);
+  //   return () => {
+  //     document.querySelector('.form').removeEventListener();
+  //   };
+  // });
 
   return (
     <div className="form">
-      <Heading tabIndex="1">
+      <Heading tabIndex="2">
         Pra finalizar, preenche esses últimos dados pra gente
       </Heading>
       <div className="inputs">
         <Input
           type="text"
           placeholder="Nome"
-          tabIndex="1"
+          tabIndex="3"
           ariaLabel="Digite seu nome"
         />
         <Input
           type="text"
-          tabIndex="2"
+          tabIndex="4"
           placeholder="Telefone"
           ariaLabel="Digite seu Telefone"
         />
         <Input
           type="text"
-          tabIndex="3"
+          tabIndex="5"
           placeholder="E-mail"
           ariaLabel="digite seu E-mail"
         />
-        <Checkbox tabIndex="4" />
+        <Checkbox tabIndex="6" />
       </div>
       <Button
-        tabIndex="5"
+        tabIndex="7"
         to="/etapa5"
         keyPressHandler={({ key }) =>
           key === 'Enter' && history.push('/etapa5')
         }
         to="/etapa5"
+        ariaLabel="Preencher o cartão resposta, Tecla Enter"
       >
         Preencher o cartão resposta
       </Button>

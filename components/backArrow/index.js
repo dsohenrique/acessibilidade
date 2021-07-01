@@ -14,10 +14,10 @@ export const BackArrow = ({ tabIndex, to }) => {
       <Link
         tabIndex={tabIndex}
         className="back-arrow"
+        aria-label="para voltar pressione enter"
         onClick={() => back()}
         onKeyDown={({ key }) => key === ' ' && back()}
       />
-      <span>Seta para a direita</span>
     </div>
   );
 };

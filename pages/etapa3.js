@@ -38,7 +38,7 @@ export const Etapa3 = () => {
         <div className="selector-wrapper">
           <Selector
             tabIndex="2"
-            ariaLabel="Pressione enter para selecionar prova Azul"
+            ariaLabel="prova Azul"
             keyNumber="1"
             value="Prova azul"
             selected={choosedSelector === '1'}
@@ -50,7 +50,7 @@ export const Etapa3 = () => {
           />
           <Selector
             tabIndex="3"
-            ariaLabel="Pressione enter para selecionar prova Amarela"
+            ariaLabel="prova Amarela"
             keyNumber="2"
             value="Prova amarela"
             selected={choosedSelector === '2'}
@@ -62,7 +62,7 @@ export const Etapa3 = () => {
           />
           <Selector
             tabIndex="4"
-            ariaLabel="Pressione enter para selecionar prova Rosa"
+            ariaLabel="prova Rosa"
             keyNumber="3"
             value="Prova rosa"
             selected={choosedSelector === '3'}
@@ -74,7 +74,7 @@ export const Etapa3 = () => {
           />
           <Selector
             tabIndex="5"
-            ariaLabel="Pressione enter para selecionar prova Branca"
+            ariaLabel="prova Branca"
             keyNumber="4"
             value="Prova branca"
             selected={choosedSelector === '4'}
@@ -91,6 +91,7 @@ export const Etapa3 = () => {
             key === 'Enter' && history.push('/etapa4')
           }
           to="/etapa4"
+          ariaLabel="Próxima etapa, Tecla Enter"
         >
           Próxima Etapa
         </Button>

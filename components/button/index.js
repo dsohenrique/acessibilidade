@@ -10,12 +10,13 @@ export const Button = ({
   children
 }) => {
   return (
-    <div
-      onKeyPress={keyPressHandler}
-      tabIndex={tabIndex}
-      aria-label={ariaLabel}
-    >
-      <Link className="button" to={to}>
+    <div onKeyPress={keyPressHandler}>
+      <Link
+        tabIndex={tabIndex}
+        aria-label={ariaLabel}
+        className="button"
+        to={to}
+      >
         {children}
       </Link>
       <div className="hint">Tecla Enter</div>

@@ -31,11 +31,15 @@ export const Etapa1 = () => {
   return (
     <div className="etapa">
       <Heading tabIndex="1">Para começar, selecione o dia da sua prova</Heading>
+      <span tabIndex="2" className="sr-only">
+        Para selecionar as opções pressione a tecla enter, as opções estão à um
+        tab de distância
+      </span>
       <div>
         <div className="selector-wrapper">
           <Selector
-            tabIndex="2"
-            ariaLabel="Pressione enter para selecionar o primeiro dia do ENEM 19 de Junho"
+            tabIndex="3"
+            ariaLabel="primeiro dia do ENEM 19 de Junho"
             keyNumber="1"
             value="Dia 1"
             date="19/06/2021"
@@ -47,8 +51,8 @@ export const Etapa1 = () => {
             }
           />
           <Selector
-            tabIndex="3"
-            ariaLabel="Pressione enter para selecionar o segundo dia do ENEM 20 de Junho"
+            tabIndex="4"
+            ariaLabel="segundo dia do ENEM 20 de Junho"
             keyNumber="2"
             value="Dia 2"
             date="20/06/2021"
@@ -65,8 +69,10 @@ export const Etapa1 = () => {
         keyPressHandler={({ key }) =>
           key === 'Enter' && history.push('/etapa2')
         }
-        tabIndex="4"
+        tabIndex="5"
         to="etapa2"
+        ariaLabel="Próxima etapa, Tecla Enter"
+
       >
         Próxima Etapa
       </Button>

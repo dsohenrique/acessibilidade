@@ -34,7 +34,7 @@ export const Etapa2 = () => {
       <BackArrow tabIndex="-1" to="/" />
       <div className="etapa">
         <span tabIndex="1" className="sr-only">
-          Para voltar pressione a tecla direcional direita
+          Se quiser voltar para a etapa anterior. pressione a tecla backspace.
         </span>
         <Heading tabIndex="2">
           Qual foi a lingua estrangeira que você escolheu?
@@ -43,7 +43,7 @@ export const Etapa2 = () => {
           <div className="selector-wrapper">
             <Selector
               tabIndex="3"
-              ariaLabel="Pressione enter para selecionar prova de Inglês"
+              ariaLabel="prova de Inglês"
               keyNumber="1"
               value="Inglês"
               selected={choosedSelector === '1'}
@@ -55,7 +55,7 @@ export const Etapa2 = () => {
             />
             <Selector
               tabIndex="4"
-              ariaLabel="Pressione enter para selecionar prova de Espanhol"
+              ariaLabel="prova de Espanhol"
               keyNumber="2"
               value="Espanhol"
               selected={choosedSelector === '2'}
@@ -73,6 +73,8 @@ export const Etapa2 = () => {
             key === 'Enter' && history.push('/etapa3')
           }
           to="/etapa3"
+        ariaLabel="Próxima etapa, Tecla Enter"
+
         >
           Próxima Etapa
         </Button>

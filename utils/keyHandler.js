@@ -2,6 +2,7 @@ import { navigate } from './pageNavigation';
 
 export const keyHandler = (key, history, nextPage, prevPage) => {
   let choosedSelector;
+  console.log(nextPage, prevPage);
   switch (key) {
     case '1':
       choosedSelector = '1';
@@ -18,7 +19,8 @@ export const keyHandler = (key, history, nextPage, prevPage) => {
     case 'ArrowRight':
       nextPage && navigate(history, nextPage);
       break;
-    case 'ArrowLeft':
+    case 'Backspace':
+      console.log('sending to ', prevPage);
       prevPage && navigate(history, prevPage);
       break;
     default:

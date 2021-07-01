@@ -172,14 +172,14 @@ export const Etapa5 = () => {
     <div className="etapa-5">
       <div className="header">
         <div className="main">
-          <BackArrow tabIndex="-1" className="going-back" to="/etapa4" />
-          <button tabIndex="-1" className="login-button">
-            Salvar
-          </button>
           <span className="sr-only" tabIndex={tabIndex++}>
             Agora preencha o gabarito, pressione tab para ir para a primeira
             questão
           </span>
+          <BackArrow tabIndex="-1" className="going-back" to="/etapa4" />
+          <button tabIndex={tabIndex} className="login-button">
+            Salvar
+          </button>
         </div>
         <div className="counter" />
       </div>
