@@ -41,7 +41,7 @@ export const Question = ({
         {alternatives.map((alternative, index) => {
           return (
             <button
-              aria-pressed="false"
+              aria-pressed={answer && answer === alternative ? 'true' : 'false'}
               tabIndex={(tabIndex += 1)}
               data={position - 1}
               aria-label={`${alternative}`}

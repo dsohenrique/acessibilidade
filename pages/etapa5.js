@@ -35,6 +35,9 @@ export const Etapa5 = () => {
     newQuestions[id].disabled = false;
     setQuestions(newQuestions);
     saveQuestions();
+    document
+      .querySelector(`#question-${id}`)
+      .querySelector('.answer').ariaPressed = 'true';
   };
 
   const setSelected = direction => {
@@ -52,22 +55,26 @@ export const Etapa5 = () => {
       .classList.remove('selected');
   };
 
-  const sendNextQuestion = () => {
-    const nextQuestion = questions[questionIndex + 1];
-    if (nextQuestion) {
-      //setSelected('down');
+  const sendNextQuestion = index => {
+    const actual = document.querySelector(`#question-${index}`);
+    const nextQuestion = document.querySelector(`#question-${index + 1}`);
 
-      document
-        .querySelectorAll('.wrapper')
-        .forEach(wrapper => wrapper.classList.remove('selected'));
-      document
-        .querySelector(`#question-${questionIndex + 1}`)
-        ?.classList.add('selected');
-      document
-        .querySelector(`#question-${questionIndex + 1}`)
-        ?.querySelectorAll('button')
-        .forEach(button => button.classList.remove('disabled'));
+    const actualButtons = actual.querySelectorAll('button');
+
+    if (nextQuestion) {
     }
+    //   //setSelected('down');
+
+    //   document
+    //     .querySelectorAll('.wrapper')
+    //     .forEach(wrapper => wrapper.classList.remove('selected'));
+    //   document
+    //     .querySelector(`#question-${questionIndex + 1}`)
+    //     ?.classList.add('selected');
+    //   document
+    //     .querySelector(`#question-${questionIndex + 1}`)
+    //     ?.querySelectorAll('button')
+    //     .forEach(button => button.classList.remove('disabled'));
   };
 
   const skiped = questionId => {
