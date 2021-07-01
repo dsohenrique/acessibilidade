@@ -15,7 +15,7 @@ export const Question = ({
   const alternatives = ['a', 'b', 'c', 'd', 'e'];
   const ariaLabel =
     position === 1
-      ? `Questão número ${position}, pressione tab para ir para as alternativas e pressione enter para selecionar. ou simplemente pressione a tecla correspondente à alternativa. caso tenha pulado a questão basta pressionar espaço.`
+      ? `Questão número ${position}, pressione tab para ir para as alternativas e pressione enter para selecionar. caso tenha pulado a questão basta pressionar espaço.`
       : `Questão número ${position}`;
   return (
     <div
@@ -40,9 +40,10 @@ export const Question = ({
         {alternatives.map((alternative, index) => {
           return (
             <button
+              aria-pressed="false"
               tabIndex={(tabIndex += 1)}
               data={position - 1}
-              aria-label={`alternativa ${alternative}`}
+              aria-label={`${alternative}`}
               className={`alternative ${
                 answer === alternative ? 'answer' : ''
               } ${disabled ? 'disabled' : ''}`}
@@ -54,6 +55,25 @@ export const Question = ({
           );
         })}
       </div>
+      <button
+        tabIndex={(tabIndex += 1)}
+        aria-pressed="false"
+        className="sr-only"
+        onKeyPress={({ target }) => {
+          const question = document.querySelector(`#${id}`);
+          question.classList.add('skiped');
+          question
+            .querySelectorAll('button')
+            .forEach(
+              button =>
+                button.classList.contains('answer') &&
+                button.classList.remove('answer')
+            );
+          target.ariaPressed = 'true';
+        }}
+      >
+        Não respondi essa questão
+      </button>
       <div tabIndex="-1" className="hinter" aria-hidden="true">
         <span>Não respondi essa questão</span>
       </div>

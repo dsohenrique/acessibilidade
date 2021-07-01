@@ -14,7 +14,8 @@ export const Selector = ({
   keyPressHandler
 }) => {
   return (
-    <div
+    <button
+      aria-pressed="false"
       onKeyPress={keyPressHandler}
       tabIndex={tabIndex}
       aria-label={ariaLabel}
@@ -47,6 +48,6 @@ export const Selector = ({
           style={{ backgroundColor: color }}
         />
       )}
-    </div>
+    </button>
   );
 };

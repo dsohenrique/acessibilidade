@@ -13,16 +13,6 @@
     margin-bottom: 64px;
   }
 }
-
-.etapa-3 {
-  .selector-wrapper {
-    flex-wrap: wrap;
-    flex-direction: row;
-    width: 401px;
-    row-gap: 8px;
-  }
-}
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -34,6 +24,15 @@
   white-space: nowrap;
   border-width: 0;
 }
+.etapa-3 {
+  .selector-wrapper {
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 401px;
+    row-gap: 8px;
+  }
+}
+
 .etapa-5 {
   .header {
     display: flex;

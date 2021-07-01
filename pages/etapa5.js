@@ -97,8 +97,9 @@ export const Etapa5 = () => {
   };
 
   //TODO: tab deve iterarar as alternativas de cada questão
-  const keyHandler = ({ key }) => {
+  const keyHandler = evt => {
     console.log('here');
+    const { key } = evt;
     if (key === 'ArrowUp') {
       arrowUpHandler();
     } else if (key === 'ArrowDown') {
@@ -106,18 +107,39 @@ export const Etapa5 = () => {
     } else if (key === ' ') {
       skiped();
     } else if (
-      key === 'a' ||
-      key === 'b' ||
-      key === 'c' ||
-      key === 'd' ||
-      key === 'e'
+      // key === 'a' ||
+      // key === 'b' ||
+      // key === 'c' ||
+      // key === 'd' ||
+      // key === 'e'
+      key === 'Enter'
     ) {
+      console.log('enter pressed', evt.target);
+      const { target } = evt;
+      if (
+        document
+          .querySelector(`#question-${questionIndex}`)
+          .classList.contains('skiped')
+      ) {
+        document
+          .querySelector(`#question-${questionIndex}`)
+          .classList.remove('skiped');
+      }
       document
         .querySelector(`#question-${questionIndex}`)
         .querySelectorAll('button')
-        .forEach(
-          button => button.name !== key && button.classList.remove('answer')
-        );
+        .forEach(button => {
+          console.log(button.name);
+          if (button.name !== target.name) {
+            console.log('ta no if');
+            button.classList.remove('answer');
+            button.ariaPressed = 'false';
+          } else {
+            console.log('ta no else');
+            button.classList.add('answer');
+            button.ariaPressed = 'true';
+          }
+        });
       setAnswer(key);
       ////sendNextQuestion();
     }
@@ -177,7 +199,7 @@ export const Etapa5 = () => {
             questão.
           </span>
           <BackArrow tabIndex="-1" className="going-back" to="/etapa4" />
-          <button tabIndex={tabIndex} className="login-button">
+          <button tabIndex="-1" className="login-button">
             Salvar
           </button>
         </div>

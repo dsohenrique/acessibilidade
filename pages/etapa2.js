@@ -28,7 +28,17 @@ export const Etapa2 = () => {
       );
     };
   });
-
+  const handler = (key, target, index) => {
+    if (key === 'Enter' || key === index || choosedSelector === index) {
+      setChoosedSelector(index);
+      console.log(document.querySelectorAll('.selector'));
+      document
+        .querySelectorAll('.selector')
+        .forEach(selector => (selector.ariaPressed = 'false'));
+      target.ariaPressed = 'true';
+      history.push('/etapa3');
+    }
+  };
   return (
     <>
       <BackArrow tabIndex="-1" to="/" />
@@ -43,27 +53,21 @@ export const Etapa2 = () => {
           <div className="selector-wrapper">
             <Selector
               tabIndex="3"
-              ariaLabel="prova de Inglês"
+              ariaLabel="Inglês"
               keyNumber="1"
               value="Inglês"
               selected={choosedSelector === '1'}
               color="#4AFFB1"
-              keyPressHandler={({ key }) =>
-                (key === 'Enter' || key === '1' || choosedSelector === '1') &&
-                setChoosedSelector('1')
-              }
+              keyPressHandler={({ key, target }) => handler(key, target, '1')}
             />
             <Selector
               tabIndex="4"
-              ariaLabel="prova de Espanhol"
+              ariaLabel="Espanhol"
               keyNumber="2"
               value="Espanhol"
               selected={choosedSelector === '2'}
               color="#4AFFB1"
-              keyPressHandler={({ key }) =>
-                (key === 'Enter' || key === '2' || choosedSelector === '2') &&
-                setChoosedSelector('2')
-              }
+              keyPressHandler={({ key, target }) => handler(key, target, '2')}
             />
           </div>
         </div>
@@ -73,8 +77,7 @@ export const Etapa2 = () => {
             key === 'Enter' && history.push('/etapa3')
           }
           to="/etapa3"
-        ariaLabel="Próxima etapa, Tecla Enter"
-
+          ariaLabel="Próxima etapa, Tecla Enter"
         >
           Próxima Etapa
         </Button>

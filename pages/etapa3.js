@@ -27,7 +27,17 @@ export const Etapa3 = () => {
       );
     };
   });
-
+  const handler = (key, target, index) => {
+    if (key === 'Enter' || key === index || choosedSelector === index) {
+      setChoosedSelector(index);
+      console.log(document.querySelectorAll('.selector'));
+      document
+        .querySelectorAll('.selector')
+        .forEach(selector => (selector.ariaPressed = 'false'));
+      target.ariaPressed = 'true';
+      history.push('/etapa4');
+    }
+  };
   return (
     <>
       <BackArrow tabIndex="-1" to="/etapa2" />
@@ -44,9 +54,7 @@ export const Etapa3 = () => {
             selected={choosedSelector === '1'}
             color="#269FF9"
             border={true}
-            keyPressHandler={({ key }) =>
-              key === 'Enter' && setChoosedSelector('1')
-            }
+            keyPressHandler={({ key, target }) => handler(key, target, '1')}
           />
           <Selector
             tabIndex="3"
@@ -56,9 +64,7 @@ export const Etapa3 = () => {
             selected={choosedSelector === '2'}
             color="#FED500"
             border={true}
-            keyPressHandler={({ key }) =>
-              key === 'Enter' && setChoosedSelector('2')
-            }
+            keyPressHandler={({ key, target }) => handler(key, target, '2')}
           />
           <Selector
             tabIndex="4"
@@ -68,9 +74,7 @@ export const Etapa3 = () => {
             selected={choosedSelector === '3'}
             color="#FF7878"
             border={true}
-            keyPressHandler={({ key }) =>
-              key === 'Enter' && setChoosedSelector('3')
-            }
+            keyPressHandler={({ key, target }) => handler(key, target, '3')}
           />
           <Selector
             tabIndex="5"
@@ -80,9 +84,7 @@ export const Etapa3 = () => {
             selected={choosedSelector === '4'}
             color="#CACDCE"
             border={true}
-            keyPressHandler={({ key }) =>
-              key === 'Enter' && setChoosedSelector('4')
-            }
+            keyPressHandler={({ key, target }) => handler(key, target, '4')}
           />
         </div>
         <Button

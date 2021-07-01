@@ -18,16 +18,26 @@ export const Etapa1 = () => {
   useEffect(() => {
     window.addEventListener(
       'keyup',
-      ({ key }) => key !== 'Enter' && key !== 'Tab' && eventHandler(key)
+      ({ key }) => key && key !== 'Tab' && eventHandler(key)
     );
     return () => {
       window.removeEventListener(
         'keyup',
-        ({ key }) => key !== 'Enter' && key !== 'Tab' && eventHandler(key)
+        ({ key }) => key !== 'Tab' && eventHandler(key)
       );
     };
   });
-
+  const handler = (key, target, index) => {
+    if (key === 'Enter' || key === index || choosedSelector === index) {
+      setChoosedSelector(index);
+      console.log(document.querySelectorAll('.selector'));
+      document
+        .querySelectorAll('.selector')
+        .forEach(selector => (selector.ariaPressed = 'false'));
+      target.ariaPressed = 'true';
+      history.push('/etapa2');
+    }
+  };
   return (
     <div className="etapa">
       <Heading tabIndex="1">Para começar, selecione o dia da sua prova</Heading>
@@ -45,10 +55,7 @@ export const Etapa1 = () => {
             date="19/06/2021"
             selected={choosedSelector === '1'}
             color="#4AFFB1"
-            keyPressHandler={({ key }) =>
-              (key === 'Enter' || key === '1' || choosedSelector === '1') &&
-              setChoosedSelector('1')
-            }
+            keyPressHandler={({ key, target }) => handler(key, target, '1')}
           />
           <Selector
             tabIndex="4"
@@ -58,10 +65,7 @@ export const Etapa1 = () => {
             date="20/06/2021"
             selected={choosedSelector === '2'}
             color="#4AFFB1"
-            keyPressHandler={({ key }) =>
-              (key === 'Enter' || key === '2' || choosedSelector === '2') &&
-              setChoosedSelector('2')
-            }
+            keyPressHandler={({ key, target }) => handler(key, target, '2')}
           />
         </div>
       </div>
@@ -72,7 +76,6 @@ export const Etapa1 = () => {
         tabIndex="5"
         to="etapa2"
         ariaLabel="Próxima etapa, Tecla Enter"
-
       >
         Próxima Etapa
       </Button>
