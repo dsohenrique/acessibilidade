@@ -55,7 +55,7 @@ export const Question = ({
           );
         })}
       </div>
-      <button
+      {/* <button
         tabIndex={(tabIndex += 1)}
         aria-pressed="false"
         className="sr-only"
@@ -73,7 +73,7 @@ export const Question = ({
         }}
       >
         Não respondi essa questão
-      </button>
+      </button> */}
       <div tabIndex="-1" className="hinter" aria-hidden="true">
         <span>Não respondi essa questão</span>
       </div>
