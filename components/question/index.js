@@ -31,6 +31,7 @@ export const Question = ({
         tabIndex={tabIndex}
         onKeyPress={keyPressHandler}
         aria-label={ariaLabel}
+        data={position - 1}
       >
         <div
           tabIndex="-1"

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Selector } from '../components/selector';
-import { keyHandler } from '../utils/keyHandler';
+import { globalKeyUp } from '../utils/events';
 import { useHistory } from 'react-router-dom';
 import { Button } from '../components/button';
 import { Heading } from '../components/heading';
@@ -11,31 +11,24 @@ export const Etapa3 = () => {
   const [choosedSelector, setChoosedSelector] = useState('');
   const history = useHistory();
 
-  const eventHandler = key => {
-    setChoosedSelector(keyHandler(key, history, '/etapa4', '/etapa2'));
-  };
+  const eventHandler = useCallback(
+    ({ key }) => {
+      console.log(key);
+      if (key === 'Enter') {
+        history.push('/etapa4');
+      } else if (key === 'Backspace') {
+        history.push('/etapa2');
+      }
+      setChoosedSelector(key);
+    },
+    [choosedSelector]
+  );
 
-  useEffect(() => {
-    window.addEventListener(
-      'keyup',
-      ({ key }) => key !== 'Tab' && eventHandler(key)
-    );
-    return () => {
-      window.removeEventListener(
-        'keyup',
-        ({ key }) => key !== 'Tab' && eventHandler(key)
-      );
-    };
-  });
-  const handler = (key, target, index) => {
-    if (key === 'Enter' || key === index || choosedSelector === index) {
+  globalKeyUp(eventHandler);
+
+  const handler = (key, target, selector) => {
+    if (key === selector || choosedSelector === selector) {
       setChoosedSelector(index);
-      console.log(document.querySelectorAll('.selector'));
-      document
-        .querySelectorAll('.selector')
-        .forEach(selector => (selector.ariaPressed = 'false'));
-      target.ariaPressed = 'true';
-      //history.push('/etapa4');
     }
   };
   return (

@@ -1,44 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Question } from '../components/question';
 import { BackArrow } from '../components/backArrow';
+import { globalKeyUp } from '../utils/events';
+import { useHistory } from 'react-router-dom';
 
 export const Etapa5 = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [questions, setQuestions] = useState([
-    {
-      id: 0,
-      answer: '',
-      skiped: false,
-      disabled: false
-    },
-    {
-      id: 1,
-      answer: '',
-      skiped: false,
-      disabled: true
-    }
-    // {
-    //   id: 2,
-    //   answer: '',
-    //   skiped: false,
-    //   disabled: true
-    // },
-    // {
-    //   id: 3,
-    //   answer: '',
-    //   skiped: false,
-    //   disabled: true
-    // }
-  ]);
-
+  const getQuestions = () => {
+    return JSON.parse(window.localStorage.getItem('questions'));
+  };
+  const [questions, setQuestions] = useState(
+    getQuestions() || [
+      {
+        id: 0,
+        answer: '',
+        skiped: false,
+        disabled: false
+      },
+      {
+        id: 1,
+        answer: '',
+        skiped: false,
+        disabled: true
+      }
+    ]
+  );
+  const saveQuestions = () => {
+    window.localStorage.setItem('questions', JSON.stringify(questions));
+  };
   const setAnswer = (answer, id) => {
     const newQuestions = [...questions];
-    const idx = id || questionIndex;
-    newQuestions[idx].answer = answer;
-    newQuestions[idx].skiped = false;
-    newQuestions[idx].disabled = false;
+    newQuestions[id].answer = answer;
+    newQuestions[id].skiped = false;
+    newQuestions[id].disabled = false;
     setQuestions(newQuestions);
-    setQuestionIndex(() => idx);
+    saveQuestions();
   };
 
   const setSelected = direction => {
@@ -74,12 +70,19 @@ export const Etapa5 = () => {
     }
   };
 
-  const skiped = () => {
+  const skiped = questionId => {
     const newQuestions = [...questions];
-    newQuestions[questionIndex].answer = '';
-    newQuestions[questionIndex].skiped = true;
+    newQuestions[questionId].answer = '';
+    newQuestions[questionId].skiped = true;
     setQuestions(newQuestions);
     //sendNextQuestion();
+    console.log(`question ${questionId}`);
+    const question = document.querySelector(`#question-${questionId}`);
+    question
+      .querySelectorAll('button')
+      .forEach(button => button.classList.remove('answer'));
+    question.classList.add('skiped');
+    saveQuestions();
   };
 
   const arrowUpHandler = () => {
@@ -97,53 +100,55 @@ export const Etapa5 = () => {
   };
 
   //TODO: tab deve iterarar as alternativas de cada questão
-  const keyHandler = evt => {
-    console.log('here');
-    const { key } = evt;
-    if (key === 'ArrowUp') {
-      arrowUpHandler();
-    } else if (key === 'ArrowDown') {
-      arrowDownHandler();
-    } else if (key === ' ') {
-      skiped();
-    } else if (
-      // key === 'a' ||
-      // key === 'b' ||
-      // key === 'c' ||
-      // key === 'd' ||
-      // key === 'e'
-      key === 'Enter'
-    ) {
-      console.log('enter pressed', evt.target);
-      const { target } = evt;
-      if (
-        document
-          .querySelector(`#question-${questionIndex}`)
-          .classList.contains('skiped')
-      ) {
-        document
-          .querySelector(`#question-${questionIndex}`)
-          .classList.remove('skiped');
-      }
-      document
-        .querySelector(`#question-${questionIndex}`)
-        .querySelectorAll('button')
-        .forEach(button => {
-          console.log(button.name);
-          if (button.name !== target.name) {
-            console.log('ta no if');
-            button.classList.remove('answer');
-            button.ariaPressed = 'false';
-          } else {
-            console.log('ta no else');
-            button.classList.add('answer');
-            button.ariaPressed = 'true';
-          }
-        });
-      setAnswer(key);
-      ////sendNextQuestion();
-    }
-  };
+  // const keyHandler = evt => {
+  //   const { key } = evt;
+  //   console.log(key);
+  //   // if (key === 'ArrowUp') {
+  //   //   arrowUpHandler();
+  //   // } else if (key === 'ArrowDown') {
+  //   //   arrowDownHandler();
+  //   // }
+  //   if (key === 'Alt') {
+  //     skiped();
+  //   }
+  //   // else if (
+  //   //   // key === 'a' ||
+  //   //   // key === 'b' ||
+  //   //   // key === 'c' ||
+  //   //   // key === 'd' ||
+  //   //   // key === 'e'
+  //   //   key === 'Enter'
+  //   // ) {
+  //   //   console.log('enter pressed', evt.target);
+  //   //   const { target } = evt;
+  //   //   if (
+  //   //     document
+  //   //       .querySelector(`#question-${questionIndex}`)
+  //   //       .classList.contains('skiped')
+  //   //   ) {
+  //   //     document
+  //   //       .querySelector(`#question-${questionIndex}`)
+  //   //       .classList.remove('skiped');
+  //   //   }
+  //   //   document
+  //   //     .querySelector(`#question-${questionIndex}`)
+  //   //     .querySelectorAll('button')
+  //   //     .forEach(button => {
+  //   //       console.log(button.name);
+  //   //       if (button.name !== target.name) {
+  //   //         console.log('ta no if');
+  //   //         button.classList.remove('answer');
+  //   //         button.ariaPressed = 'false';
+  //   //       } else {
+  //   //         console.log('ta no else');
+  //   //         button.classList.add('answer');
+  //   //         button.ariaPressed = 'true';
+  //   //       }
+  //   //     });
+  //   //   setAnswer(key);
+  //   //   ////sendNextQuestion();
+  //   // }
+  // };
 
   const clickHandler = ({ target }, index, skiped) => {
     const questionId = target.getAttribute('data');
@@ -173,22 +178,33 @@ export const Etapa5 = () => {
     //!hasAnswer && //sendNextQuestion();
   };
 
-  useEffect(() => {
-    // window.addEventListener('keyup', keyHandler);
-    // document.querySelectorAll('.alternative').forEach(alternative => {
-    //   alternative.addEventListener('click', ({ target }) =>
-    //     setQuestionIndex(+target.getAttribute('data'))
-    //   );
-    // });
-    // return () => {
-    //   window.removeEventListener('keyup', keyHandler);
-    //   document.querySelectorAll('.alternative').forEach(alternative => {
-    //     alternative.addEventListener('click', ({ target }) =>
-    //       setQuestionIndex(+target.getAttribute('data'))
-    //     );
-    //   });
-    // };
-  });
+  const history = useHistory('/etapa4');
+
+  const keyHandler = useCallback(({ key, target }) => {
+    if (key === 'Backspace') {
+      history.push('/etapa4');
+    } else if (key === 'Alt') {
+      skiped(target.getAttribute('data'));
+    } else if (key === '3') {
+      console.log(getQuestions());
+    } else if (key === ' ') {
+      const { name } = target;
+      if (
+        name === 'a' ||
+        name === 'b' ||
+        name === 'c' ||
+        name === 'd' ||
+        name === 'e'
+      ) {
+        document
+          .querySelector(`#question-${target.getAttribute('data')}`)
+          .classList.remove('skiped');
+        setAnswer(name, target.getAttribute('data'));
+      }
+    }
+  }, []);
+
+  globalKeyUp(keyHandler);
   let tabIndex = 1;
   return (
     <div className="etapa-5">
@@ -218,9 +234,6 @@ export const Etapa5 = () => {
               disabled={false}
               clickHandler={evt => clickHandler(evt, index, skiped)}
               tabIndex={tabIndex}
-              keyPressHandler={evt => {
-                keyHandler(evt);
-              }}
             />
           );
           tabIndex += 7;

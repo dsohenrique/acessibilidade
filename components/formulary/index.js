@@ -1,25 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { Button } from '../button';
 import { Input } from '../input';
 import { Checkbox } from '../checkbox';
 import { Heading } from '../heading';
 import { useHistory } from 'react-router-dom';
-import { keyHandler } from '../../utils/keyHandler';
+import { globalKeyUp } from '../../utils/events';
 
 import './styles';
 export const Formulary = () => {
   const history = useHistory();
-  // const eventHandler = key => {
-  //   keyHandler(key, history, '/etapa5', '/etapa3');
-  // };
-  // useEffect(() => {
-  //   document
-  //     .querySelector('.form')
-  //     .addEventListener('keyup', ({ key }) => key !== 'Enter' && eventHandler);
-  //   return () => {
-  //     document.querySelector('.form').removeEventListener();
-  //   };
-  // });
+  const eventHandler = useCallback(({ key }) => {
+    console.log(key);
+    if (key === 'Enter') {
+      history.push('/etapa5');
+    } else if (key === 'Backspace') {
+      history.push('/etapa3');
+    }
+  }, []);
+
+  globalKeyUp(eventHandler);
+
+  const handler = (key, target, selector) => {
+    if (key === selector || choosedSelector === selector) {
+      setChoosedSelector(index);
+    }
+  };
 
   return (
     <div className="form">
