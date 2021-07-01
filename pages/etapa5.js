@@ -174,7 +174,7 @@ export const Etapa5 = () => {
         <div className="main">
           <span className="sr-only" tabIndex={tabIndex++}>
             Agora preencha o gabarito, pressione tab para ir para a primeira
-            questão
+            questão.
           </span>
           <BackArrow tabIndex="-1" className="going-back" to="/etapa4" />
           <button tabIndex={tabIndex} className="login-button">
