@@ -13,9 +13,10 @@ export const Formulary = () => {
     console.log(key);
     if (key === 'Enter') {
       history.push('/etapa5');
-    } else if (key === 'Backspace') {
-      history.push('/etapa3');
     }
+    // else if (key === 'Backspace') {
+    //   history.push('/etapa3');
+    // }
   }, []);
 
   globalKeyUp(eventHandler);
