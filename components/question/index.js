@@ -10,7 +10,8 @@ export const Question = ({
   disabled,
   clickHandler,
   tabIndex,
-  keyPressHandler
+  keyPressHandler,
+  skipHandler
 }) => {
   const alternatives = ['a', 'b', 'c', 'd', 'e'];
   const ariaLabel =
@@ -75,8 +76,14 @@ export const Question = ({
       >
         Não respondi essa questão
       </button> */}
-      <div tabIndex="-1" className="hinter" aria-hidden="true">
-        <span>Não respondi essa questão</span>
+      <div
+        onClick={skipHandler}
+        tabIndex="-1"
+        className="hinter"
+        aria-hidden="true"
+        data={position - 1}
+      >
+        <span data={position - 1}>Não respondi essa questão</span>
       </div>
     </div>
   );

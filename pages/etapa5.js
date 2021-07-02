@@ -77,7 +77,7 @@ export const Etapa5 = () => {
     //     .forEach(button => button.classList.remove('disabled'));
   };
 
-  const skiped = questionId => {
+  const skipHandler = questionId => {
     const newQuestions = [...questions];
     newQuestions[questionId].answer = '';
     newQuestions[questionId].skiped = true;
@@ -116,7 +116,7 @@ export const Etapa5 = () => {
   //   //   arrowDownHandler();
   //   // }
   //   if (key === 'Alt') {
-  //     skiped();
+  //     skipHandler();
   //   }
   //   // else if (
   //   //   // key === 'a' ||
@@ -159,7 +159,7 @@ export const Etapa5 = () => {
 
   const clickHandler = ({ target }, index, skiped) => {
     const questionId = target.getAttribute('data');
-    console.log('clicked question index', questionIndex);
+    console.log('clicked question index', index);
     //document.querySelector('.selected').classList.remove('selected');
     const question = document.querySelector(`#question-${questionId}`);
     //question.classList.add('selected');
@@ -177,10 +177,7 @@ export const Etapa5 = () => {
         button.classList.remove('answer');
       }
     });
-    skiped &&
-      document
-        .querySelector(`#question-${questionId}`)
-        .classList.remove('skiped');
+    question.classList.remove('skiped');
     console.log('has answer', hasAnswer);
     //!hasAnswer && //sendNextQuestion();
   };
@@ -191,7 +188,7 @@ export const Etapa5 = () => {
     if (key === 'Backspace') {
       history.push('/etapa4');
     } else if (key === 'Alt') {
-      skiped(target.getAttribute('data'));
+      skipHandler(target.getAttribute('data'));
     } else if (key === '3') {
       console.log(getQuestions());
     } else if (key === ' ') {
@@ -241,6 +238,7 @@ export const Etapa5 = () => {
               disabled={false}
               clickHandler={evt => clickHandler(evt, index, skiped)}
               tabIndex={tabIndex}
+              skipHandler={() => skipHandler(index)}
             />
           );
           tabIndex += 7;
