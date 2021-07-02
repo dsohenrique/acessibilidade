@@ -16,7 +16,7 @@ export const Formulary = () => {
     }
     // else if (key === 'Backspace') {
     //   history.push('/etapa3');
-    // }
+    /// }
   }, []);
 
   globalKeyUp(eventHandler);
