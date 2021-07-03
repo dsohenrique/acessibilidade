@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Question } from '../components/question';
 import { BackArrow } from '../components/backArrow';
 import { globalKeyUp } from '../utils/events';
@@ -25,9 +25,14 @@ export const Etapa5 = () => {
       }
     ]
   );
+
+  useEffect(() => {
+
+  }, [questions]);
   const saveQuestions = () => {
     window.localStorage.setItem('questions', JSON.stringify(questions));
   };
+  
   const setAnswer = (answer, id) => {
     const newQuestions = [...questions];
     newQuestions[id].answer = answer;
