@@ -6,10 +6,14 @@ export const Input = ({
   placeholder,
   tabIndex,
   autoFocus,
-  ariaLabel
+  ariaLabel,
+  onFocus,
+  onBlur
 }) => {
   return (
     <input
+    onBlur={onBlur}
+      onFocus={onFocus}
       autoFocus={autoFocus}
       type={type}
       aria-label={ariaLabel}

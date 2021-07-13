@@ -2,7 +2,6 @@ import { navigate } from './pageNavigation';
 
 export const keyHandler = (key, history, nextPage, prevPage) => {
   let choosedSelector;
-  console.log(nextPage, prevPage);
   switch (key) {
     case '1':
       choosedSelector = '1';
@@ -20,7 +19,6 @@ export const keyHandler = (key, history, nextPage, prevPage) => {
       nextPage && navigate(history, nextPage);
       break;
     case 'Backspace':
-      console.log('sending to ', prevPage);
       prevPage && navigate(history, prevPage);
       break;
     default:

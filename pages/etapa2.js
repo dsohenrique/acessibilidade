@@ -14,7 +14,6 @@ export const Etapa2 = () => {
 
   const eventHandler = useCallback(
     ({ key }) => {
-      console.log(key);
       if (key === 'Enter') {
         history.push('/etapa3');
       } else if (key === 'Backspace') {

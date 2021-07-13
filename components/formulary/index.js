@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Button } from '../button';
 import { Input } from '../input';
 import { Checkbox } from '../checkbox';
@@ -8,16 +8,18 @@ import { globalKeyUp } from '../../utils/events';
 
 import './styles';
 export const Formulary = () => {
+  const [useBackspace, setUseBackspace] = useState(true);
   const history = useHistory();
-  const eventHandler = useCallback(({ key }) => {
-    console.log(key);
-    if (key === 'Enter') {
-      history.push('/etapa5');
-    }
-    // else if (key === 'Backspace') {
-    //   history.push('/etapa3');
-    /// }
-  }, []);
+  const eventHandler = useCallback(
+    ({ key }) => {
+      if (key === 'Enter') {
+        history.push('/etapa5');
+      } else if (useBackspace && key === 'Backspace') {
+        history.push('/etapa3');
+      }
+    },
+    [useBackspace]
+  );
 
   globalKeyUp(eventHandler);
 
@@ -34,18 +36,24 @@ export const Formulary = () => {
       </Heading>
       <div className="inputs">
         <Input
+          onFocus={() => setUseBackspace(false)}
+          onBlur={() => setUseBackspace(true)}
           type="text"
           placeholder="Nome"
           tabIndex="3"
           ariaLabel="Digite seu nome"
         />
         <Input
+          onFocus={() => setUseBackspace(false)}
+          onBlur={() => setUseBackspace(true)}
           type="text"
           tabIndex="4"
           placeholder="Telefone"
           ariaLabel="Digite seu Telefone"
         />
         <Input
+          onFocus={() => setUseBackspace(false)}
+          onBlur={() => setUseBackspace(true)}
           type="text"
           tabIndex="5"
           placeholder="E-mail"
