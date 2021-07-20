@@ -9,9 +9,9 @@ export const Etapa5 = () => {
   const [direction, setDirection] = useState('');
   const [skiped, setSkiped] = useState(false);
 
-  const getQuestions = () => {
-    return JSON.parse(window.localStorage.getItem('questions'));
-  };
+  const getQuestions = () =>
+    JSON.parse(window.localStorage.getItem('questions'));
+
   const [answer, setAnswer] = useState('');
   const [questions, setQuestions] = useState(
     getQuestions() || [
@@ -63,6 +63,27 @@ export const Etapa5 = () => {
         skiped: false,
         disabled: true,
         isSelected: false
+      },
+      {
+        id: 7,
+        answer: '',
+        skiped: false,
+        disabled: true,
+        isSelected: false
+      },
+      {
+        id: 8,
+        answer: '',
+        skiped: false,
+        disabled: true,
+        isSelected: false
+      },
+      {
+        id: 9,
+        answer: '',
+        skiped: false,
+        disabled: true,
+        isSelected: false
       }
     ]
   );
@@ -73,18 +94,16 @@ export const Etapa5 = () => {
 
   useEffect(() => {
     if (answer) {
-      // console.log('answer hook', questionIndex);
+      console.log('answer hook', questionIndex);
       const newQuestions = [...questions];
       newQuestions[questionIndex].answer = answer;
       newQuestions[questionIndex].skiped = false;
       newQuestions[questionIndex].disabled = false;
-      if (newQuestions[questionIndex + 1])
-        newQuestions[questionIndex].isSelected = false;
       setQuestions(newQuestions);
       setAnswer('');
       // console.log('setanswer', questions);
       //saveQuestions();
-      sendNextQuestion();
+      setDirection('nextQuestion');
     }
   }, [answer]);
 
@@ -95,9 +114,8 @@ export const Etapa5 = () => {
       const prevQuestion = newQuestions[questionIndex - 1];
       const nextQuestion = newQuestions[questionIndex + 1];
       newQuestions[questionIndex].disabled = false;
- 
       if (direction === 'up' && prevQuestion && questionIndex !== 0) {
-        newQuestions[questionIndex].isSelected = false;
+        questions.forEach(question => (question.isSelected = false));
         prevQuestion.disabled = false;
         prevQuestion.skiped = false;
         prevQuestion.isSelected = true;
@@ -108,7 +126,7 @@ export const Etapa5 = () => {
           questionIndex + 1 < questions.length &&
           !nextQuestion.disabled)
       ) {
-        newQuestions[questionIndex].isSelected = false;
+        questions.forEach(question => (question.isSelected = false));
         nextQuestion.disabled = false;
         nextQuestion.skiped = false;
         nextQuestion.isSelected = true;
@@ -116,26 +134,9 @@ export const Etapa5 = () => {
       }
       // console.log('questions questionIndex hook', questions);
     }
-    saveQuestions();
+    //saveQuestions();
     setDirection('');
   }, [direction]);
-
-  const sendNextQuestion = () => {
-    const nextQuestion = questions[questionIndex + 1];
-    if (nextQuestion) {
-      setDirection('nextQuestion');
-    }
-  };
-
-  const skipHandler = questionId => {
-    const newQuestions = [...questions];
-    newQuestions[questionId].answer = '';
-    newQuestions[questionId].skiped = true;
-    setQuestions(newQuestions);
-    //sendNextQuestion();
-    // console.log(`question ${questionId}`);
-    saveQuestions();
-  };
 
   useEffect(() => {
     if (skiped) {
@@ -146,8 +147,6 @@ export const Etapa5 = () => {
       newQuestions[questionIndex].disabled = false;
       setQuestions(newQuestions);
       setSkiped(false);
-      // console.log('setanswer', questions);
-      //saveQuestions();
       setDirection('nextQuestion');
     }
   }, [skiped]);
@@ -163,12 +162,13 @@ export const Etapa5 = () => {
   const keyHandler = evt => {
     const { key } = evt;
     console.log('keyHandler', key);
-    if (key === 'ArrowUp') {
+    if (key === 'Backspace') {
+      //history.push('/etapa4');
+    } else if (key === 'ArrowUp') {
       arrowUpHandler();
     } else if (key === 'ArrowDown') {
       arrowDownHandler();
-    }
-    if (key === ' ') {
+    } else if (key === ' ') {
       setSkiped(true);
     } else if (
       key === 'a' ||
@@ -185,32 +185,15 @@ export const Etapa5 = () => {
     window.addEventListener('keydown', keyHandler);
   }, []);
 
-  const clickHandler = ({ target }, index, skiped) => {
-    // const questionId = target.getAttribute('data');
-    // // console.log('clicked question index', index);
-    // //document.querySelector('.selected').classList.remove('selected');
-    // const question = document.querySelector(`#question-${questionId}`);
-    // //question.classList.add('selected');
-    // let hasAnswer = false;
-    // const buttons = question.querySelectorAll('button');
-    // buttons.forEach(button => {
-    //   if (button.classList.contains('answer')) {
-    //     hasAnswer = true;
-    //   }
-    //   if (button.name === target.name) {
-    //     target.classList.add('answer');
-    //     // console.log(target.name);
-    //     setAnswer(target.name, questionId);
-    //   } else {
-    //     button.classList.remove('answer');
-    //   }
-    // });
-    // question.classList.remove('skiped');
-    // // console.log('has answer', hasAnswer);
-    // //!hasAnswer && //sendNextQuestion();
+  const clickHandler = ({ target }) => {
+    const questionId = target.getAttribute('data');
+    if (!questions[questionId].disabled) {
+      setQuestionIndex(+questionId);
+      setAnswer(target.getAttribute('name'));
+    }
   };
 
-  const history = useHistory('/etapa4');
+  const history = useHistory();
 
   // const keyHandler = useCallback(({ key, target }) => {
   //   if (key === 'Backspace') {
