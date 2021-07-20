@@ -15,24 +15,24 @@ export const Etapa5 = () => {
         id: 0,
         answer: '',
         skiped: false,
-        disabled: false
+        disabled: false,
+        isSelected: true
       },
       {
         id: 1,
         answer: '',
         skiped: false,
-        disabled: true
+        disabled: true,
+        isSelected: false
       }
     ]
   );
 
-  useEffect(() => {
-
-  }, [questions]);
+  useEffect(() => {}, [questions]);
   const saveQuestions = () => {
     window.localStorage.setItem('questions', JSON.stringify(questions));
   };
-  
+
   const setAnswer = (answer, id) => {
     const newQuestions = [...questions];
     newQuestions[id].answer = answer;
@@ -111,7 +111,6 @@ export const Etapa5 = () => {
     //sendNextQuestion();
   };
 
-  //TODO: tab deve iterarar as alternativas de cada questão
   // const keyHandler = evt => {
   //   const { key } = evt;
   //   console.log(key);
@@ -237,10 +236,10 @@ export const Etapa5 = () => {
               id={`question-${index}`}
               key={index}
               position={index + 1}
-              isSelected={true}
+              isSelected={isSelected}
               skiped={skiped}
               answer={answer}
-              disabled={false}
+              disabled={disabled}
               clickHandler={evt => clickHandler(evt, index, skiped)}
               tabIndex={tabIndex}
               skipHandler={() => skipHandler(index)}

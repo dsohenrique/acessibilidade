@@ -83,7 +83,7 @@ export const Question = ({
         aria-hidden="true"
         data={position - 1}
       >
-        <span data={position - 1}>Não respondi essa questão</span>
+        <span data={position - 1}> Espaço - Não respondi essa questão</span>
       </div>
     </div>
   );
