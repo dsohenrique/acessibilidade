@@ -69,7 +69,7 @@ export const Etapa5 = () => {
       setDirection('');
       console.log('questions', questions);
     }
-  }, [questionIndex, direction]);
+  }, [direction]);
 
   const sendNextQuestion = () => {
     const nextQuestion = questions[questionIndex + 1];
