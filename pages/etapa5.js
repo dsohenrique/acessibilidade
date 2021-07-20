@@ -158,7 +158,13 @@ export const Etapa5 = () => {
   const arrowDownHandler = () => {
     setDirection('down');
   };
+  const navigationHandler = useCallback(({ key }) => {
+    if (key === 'Backspace') {
+      history.push('/etapa4');
+    }
+  }, []);
 
+  globalKeyUp(navigationHandler);
   const keyHandler = evt => {
     const { key } = evt;
     console.log('keyHandler', key);
