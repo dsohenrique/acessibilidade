@@ -95,8 +95,7 @@ export const Etapa5 = () => {
       const prevQuestion = newQuestions[questionIndex - 1];
       const nextQuestion = newQuestions[questionIndex + 1];
       newQuestions[questionIndex].disabled = false;
-      newQuestions[questionIndex].skiped = false;
-
+ 
       if (direction === 'up' && prevQuestion && questionIndex !== 0) {
         newQuestions[questionIndex].isSelected = false;
         prevQuestion.disabled = false;
@@ -117,6 +116,7 @@ export const Etapa5 = () => {
       }
       // console.log('questions questionIndex hook', questions);
     }
+    saveQuestions();
     setDirection('');
   }, [direction]);
 
@@ -139,7 +139,7 @@ export const Etapa5 = () => {
 
   useEffect(() => {
     if (skiped) {
-      // console.log('answer hook', questionIndex);
+      console.log('skiped hook', questionIndex);
       const newQuestions = [...questions];
       newQuestions[questionIndex].answer = '';
       newQuestions[questionIndex].skiped = true;
@@ -148,7 +148,7 @@ export const Etapa5 = () => {
       setSkiped(false);
       // console.log('setanswer', questions);
       //saveQuestions();
-      sendNextQuestion();
+      setDirection('nextQuestion');
     }
   }, [skiped]);
 
@@ -265,7 +265,7 @@ export const Etapa5 = () => {
               disabled={disabled}
               clickHandler={evt => clickHandler(evt, index, skiped)}
               tabIndex={tabIndex}
-              skipHandler={() => skipHandler(index)}
+              skipHandler={() => setSkiped(true)}
             />
           );
           tabIndex += 7;
