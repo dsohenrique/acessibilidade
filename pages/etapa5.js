@@ -11,68 +11,71 @@ export const Etapa5 = () => {
   const getQuestions = () => {
     return JSON.parse(window.localStorage.getItem('questions'));
   };
-  const [questions, setQuestions] = useState([
-    {
-      id: 0,
-      answer: '',
-      skiped: false,
-      disabled: false,
-      isSelected: true
-    },
-    {
-      id: 1,
-      answer: '',
-      skiped: false,
-      disabled: true,
-      isSelected: false
-    }
-  ]);
-
-  const saveQuestions = () => {
-    window.localStorage.setItem('questions', JSON.stringify(questions));
-  };
-
-  const setAnswer = answer => {
-    const newQuestions = [...questions];
-    newQuestions[questionIndex].answer = answer;
-    newQuestions[questionIndex].skiped = false;
-    newQuestions[questionIndex].disabled = false;
-    setQuestions(newQuestions);
-    console.log(questions);
-    saveQuestions();
-  };
-
-  useEffect(() => {
-    console.log(questionIndex);
-    setQuestions([
-      ...questions,
+  const [answer, setAnswer] = useState('');
+  const [questions, setQuestions] = useState(
+    getQuestions() || [
       {
-        id: questionIndex,
+        id: 0,
         answer: '',
         skiped: false,
         disabled: false,
         isSelected: true
       },
       {
-        id: direction === 'up' ? questionIndex - 1 : questionIndex + 1,
+        id: 1,
         answer: '',
         skiped: false,
         disabled: true,
         isSelected: false
       }
-    ]);
-  }, [questionIndex]);
+    ]
+  );
 
-  const setSelected = () => {
-    setQuestionIndex(
-      direction === 'up' ? questionIndex - 1 : questionIndex + 1
-    );
+  const saveQuestions = () => {
+    window.localStorage.setItem('questions', JSON.stringify(questions));
   };
+
+  useEffect(() => {
+    if (answer) {
+      console.log('answer hook', questionIndex);
+      const newQuestions = [...questions];
+      newQuestions[questionIndex].answer = answer;
+      newQuestions[questionIndex].skiped = false;
+      newQuestions[questionIndex].disabled = false;
+      newQuestions[questionIndex].isSelected = false;
+      setQuestions(newQuestions);
+      console.log('setanswer', questions);
+      //saveQuestions();
+      sendNextQuestion();
+    }
+  }, [answer]);
+
+  useEffect(() => {
+    if (direction) {
+      console.log('questionIndex hook', questionIndex);
+      const newQuestions = [...questions];
+
+      if (direction === 'up' && newQuestions[questionIndex + 1]) {
+        newQuestions[questionIndex - 1].disabled = false;
+        newQuestions[questionIndex - 1].skiped = false;
+        newQuestions[questionIndex - 1].isSelected = true;
+      } else if (direction === 'down' && newQuestions[questionIndex + 1]) {
+        newQuestions[questionIndex + 1].disabled = false;
+        newQuestions[questionIndex + 1].skiped = false;
+        newQuestions[questionIndex + 1].isSelected = true;
+      }
+      setDirection('');
+      setQuestionIndex(
+        direction === 'up' ? questionIndex - 1 : questionIndex + 1
+      );
+      console.log('questions', questions);
+    }
+  }, [questionIndex, direction]);
 
   const sendNextQuestion = () => {
     const nextQuestion = questions[questionIndex + 1];
     if (nextQuestion) {
-      setSelected('down');
+      setDirection('down');
     }
   };
 
@@ -116,12 +119,9 @@ export const Etapa5 = () => {
       key === 'b' ||
       key === 'c' ||
       key === 'd' ||
-      key === 'e' ||
-      key === 'Enter'
+      key === 'e'
     ) {
-      const { target } = evt;
       setAnswer(key);
-      sendNextQuestion();
     }
   };
 
