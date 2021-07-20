@@ -59,15 +59,14 @@ export const Etapa5 = () => {
         newQuestions[questionIndex - 1].disabled = false;
         newQuestions[questionIndex - 1].skiped = false;
         newQuestions[questionIndex - 1].isSelected = true;
+        setQuestionIndex(questionIndex - 1);
       } else if (direction === 'down' && newQuestions[questionIndex + 1]) {
         newQuestions[questionIndex + 1].disabled = false;
         newQuestions[questionIndex + 1].skiped = false;
         newQuestions[questionIndex + 1].isSelected = true;
+        setQuestionIndex(questionIndex + 1);
       }
       setDirection('');
-      setQuestionIndex(
-        direction === 'up' ? questionIndex - 1 : questionIndex + 1
-      );
       console.log('questions', questions);
     }
   }, [questionIndex, direction]);
