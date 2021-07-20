@@ -6,80 +6,74 @@ import { useHistory } from 'react-router-dom';
 
 export const Etapa5 = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
+  const [direction, setDirection] = useState('');
+
   const getQuestions = () => {
     return JSON.parse(window.localStorage.getItem('questions'));
   };
-  const [questions, setQuestions] = useState(
-    getQuestions() || [
+  const [questions, setQuestions] = useState([
+    {
+      id: 0,
+      answer: '',
+      skiped: false,
+      disabled: false,
+      isSelected: true
+    },
+    {
+      id: 1,
+      answer: '',
+      skiped: false,
+      disabled: true,
+      isSelected: false
+    }
+  ]);
+
+  const saveQuestions = () => {
+    window.localStorage.setItem('questions', JSON.stringify(questions));
+  };
+
+  const setAnswer = answer => {
+    const newQuestions = [...questions];
+    newQuestions[questionIndex].answer = answer;
+    newQuestions[questionIndex].skiped = false;
+    newQuestions[questionIndex].disabled = false;
+    setQuestions(newQuestions);
+    console.log(questions);
+    saveQuestions();
+  };
+
+  useEffect(() => {
+    console.log(questionIndex);
+    setQuestions([
+      ...questions,
       {
-        id: 0,
+        id: questionIndex,
         answer: '',
         skiped: false,
         disabled: false,
         isSelected: true
       },
       {
-        id: 1,
+        id: direction === 'up' ? questionIndex - 1 : questionIndex + 1,
         answer: '',
         skiped: false,
         disabled: true,
         isSelected: false
       }
-    ]
-  );
+    ]);
+  }, [questionIndex]);
 
-  useEffect(() => {}, [questions]);
-  const saveQuestions = () => {
-    window.localStorage.setItem('questions', JSON.stringify(questions));
+  const setSelected = () => {
+    setQuestionIndex(
+      direction === 'up' ? questionIndex - 1 : questionIndex + 1
+    );
   };
 
-  const setAnswer = (answer, id) => {
-    const newQuestions = [...questions];
-    newQuestions[id].answer = answer;
-    newQuestions[id].skiped = false;
-    newQuestions[id].disabled = false;
-    setQuestions(newQuestions);
-    saveQuestions();
-    document
-      .querySelector(`#question-${id}`)
-      .querySelector('.answer').ariaPressed = 'true';
-  };
-
-  const setSelected = direction => {
-    let index;
-    if (direction === 'up') {
-      index = questionIndex - 1;
-      setQuestionIndex(() => questionIndex - 1);
-    } else if (direction === 'down') {
-      index = questionIndex + 1;
-      setQuestionIndex(() => questionIndex + 1);
-    }
-    document.querySelector(`#question-${index}`).classList.add('selected');
-    document
-      .querySelector(`#question-${questionIndex}`)
-      .classList.remove('selected');
-  };
-
-  const sendNextQuestion = index => {
-    const actual = document.querySelector(`#question-${index}`);
-    const nextQuestion = document.querySelector(`#question-${index + 1}`);
-
-    const actualButtons = actual.querySelectorAll('button');
-
+  const sendNextQuestion = () => {
+    const nextQuestion = questions[questionIndex + 1];
     if (nextQuestion) {
+      setSelected('down');
     }
-    //   //setSelected('down');
-
-    //   document
-    //     .querySelectorAll('.wrapper')
-    //     .forEach(wrapper => wrapper.classList.remove('selected'));
-    //   document
-    //     .querySelector(`#question-${questionIndex + 1}`)
-    //     ?.classList.add('selected');
-    //   document
-    //     .querySelector(`#question-${questionIndex + 1}`)
-    //     ?.querySelectorAll('button')
-    //     .forEach(button => button.classList.remove('disabled'));
   };
 
   const skipHandler = questionId => {
@@ -89,18 +83,14 @@ export const Etapa5 = () => {
     setQuestions(newQuestions);
     //sendNextQuestion();
     console.log(`question ${questionId}`);
-    const question = document.querySelector(`#question-${questionId}`);
-    question
-      .querySelectorAll('button')
-      .forEach(button => button.classList.remove('answer'));
-    question.classList.add('skiped');
     saveQuestions();
   };
 
   const arrowUpHandler = () => {
-    if (questions[questionIndex - 1]) {
-      //setSelected('up');
+    if (questionIndex !== 0 && questions[questionIndex - 1]) {
       console.log('up', questionIndex);
+      setDirection('up');
+      setSelected();
     }
   };
 
@@ -111,55 +101,36 @@ export const Etapa5 = () => {
     //sendNextQuestion();
   };
 
-  // const keyHandler = evt => {
-  //   const { key } = evt;
-  //   console.log(key);
-  //   // if (key === 'ArrowUp') {
-  //   //   arrowUpHandler();
-  //   // } else if (key === 'ArrowDown') {
-  //   //   arrowDownHandler();
-  //   // }
-  //   if (key === 'Alt') {
-  //     skipHandler();
-  //   }
-  //   // else if (
-  //   //   // key === 'a' ||
-  //   //   // key === 'b' ||
-  //   //   // key === 'c' ||
-  //   //   // key === 'd' ||
-  //   //   // key === 'e'
-  //   //   key === 'Enter'
-  //   // ) {
-  //   //   console.log('enter pressed', evt.target);
-  //   //   const { target } = evt;
-  //   //   if (
-  //   //     document
-  //   //       .querySelector(`#question-${questionIndex}`)
-  //   //       .classList.contains('skiped')
-  //   //   ) {
-  //   //     document
-  //   //       .querySelector(`#question-${questionIndex}`)
-  //   //       .classList.remove('skiped');
-  //   //   }
-  //   //   document
-  //   //     .querySelector(`#question-${questionIndex}`)
-  //   //     .querySelectorAll('button')
-  //   //     .forEach(button => {
-  //   //       console.log(button.name);
-  //   //       if (button.name !== target.name) {
-  //   //         console.log('ta no if');
-  //   //         button.classList.remove('answer');
-  //   //         button.ariaPressed = 'false';
-  //   //       } else {
-  //   //         console.log('ta no else');
-  //   //         button.classList.add('answer');
-  //   //         button.ariaPressed = 'true';
-  //   //       }
-  //   //     });
-  //   //   setAnswer(key);
-  //   //   ////sendNextQuestion();
-  //   // }
-  // };
+  const keyHandler = evt => {
+    const { key } = evt;
+    console.log('keyHandler', key);
+    if (key === 'ArrowUp') {
+      arrowUpHandler();
+    } else if (key === 'ArrowDown') {
+      arrowDownHandler();
+    }
+    if (key === 'Alt') {
+      skipHandler();
+    } else if (
+      key === 'a' ||
+      key === 'b' ||
+      key === 'c' ||
+      key === 'd' ||
+      key === 'e' ||
+      key === 'Enter'
+    ) {
+      const { target } = evt;
+      setAnswer(key);
+      sendNextQuestion();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', keyHandler);
+    return () => {
+      return window.removeEventListener('keydown', keyHandler);
+    };
+  }, []);
 
   const clickHandler = ({ target }, index, skiped) => {
     const questionId = target.getAttribute('data');
@@ -188,31 +159,30 @@ export const Etapa5 = () => {
 
   const history = useHistory('/etapa4');
 
-  const keyHandler = useCallback(({ key, target }) => {
-    if (key === 'Backspace') {
-      history.push('/etapa4');
-    } else if (key === 'Alt') {
-      skipHandler(target.getAttribute('data'));
-    } else if (key === '3') {
-      console.log(getQuestions());
-    } else if (key === ' ') {
-      const { name } = target;
-      if (
-        name === 'a' ||
-        name === 'b' ||
-        name === 'c' ||
-        name === 'd' ||
-        name === 'e'
-      ) {
-        document
-          .querySelector(`#question-${target.getAttribute('data')}`)
-          .classList.remove('skiped');
-        setAnswer(name, target.getAttribute('data'));
-      }
-    }
-  }, []);
+  // const keyHandler = useCallback(({ key, target }) => {
+  //   if (key === 'Backspace') {
+  //     history.push('/etapa4');
+  //   } else if (key === 'Alt') {
+  //     skipHandler(target.getAttribute('data'));
+  //   } else if (key === '3') {
+  //     console.log(getQuestions());
+  //   } else if (key === ' ') {
+  //     const { name } = target;
+  //     if (
+  //       name === 'a' ||
+  //       name === 'b' ||
+  //       name === 'c' ||
+  //       name === 'd' ||
+  //       name === 'e'
+  //     ) {
+  //       document
+  //         .querySelector(`#question-${target.getAttribute('data')}`)
+  //         .classList.remove('skiped');
+  //       setAnswer(name, target.getAttribute('data'));
+  //     }
+  //   }
+  // }, []);
 
-  globalKeyUp(keyHandler);
   let tabIndex = 1;
   return (
     <div className="etapa-5">
